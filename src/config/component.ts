@@ -1,4 +1,5 @@
 import React, { ComponentType } from 'react';
+import { JobPostingType } from '../components/JobPosting/config';
 import JobPostingRenderer from '../renderers/JobPostingRenderer';
 
 export const componentConfig = {
@@ -27,19 +28,22 @@ export const componentConfig = {
 
 export const getComponentConfig = (
     componentName: string,
-    BaseComponent: <T>(Renderer: ComponentType<T>) => (props: any) => JSX.Element,
-    featuresOptions: { [key: string]: React.FC<any> },
+    //@ts-ignore
+    BaseComponent: <T extends unknown>(Renderer: ComponentType<T>) => (props: T | any) => JSX.Element,
+    featuresOptions: { [key: string]: React.FC<any> }, 
 ) => {
     const Renderer = componentConfig[componentName].renderer;
     const { features } = componentConfig[componentName];
 
-    let Component: any = BaseComponent(Renderer);
-
+    let Component = BaseComponent(Renderer);
+    
     features.forEach((feature: { name: string; enabled: boolean }) => {
         if (featuresOptions[feature.name] && feature.enabled) {
             // Wrap job posting base
+            // @ts-ignore
             Component = featuresOptions[feature.name](Component);
         }
     });
+
     return Component;
 };

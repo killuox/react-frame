@@ -6,6 +6,8 @@ function App() {
                 title="Software Engineer"
                 description="Im a job posting description"
                 company="Amazon"
+                showHover={false}
+                withFavorite={true}
                 onCompanyClick={() => {
                     console.log('on company click');
                 }}

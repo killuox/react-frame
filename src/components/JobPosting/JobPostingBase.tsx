@@ -1,4 +1,5 @@
 import React, { ComponentType, useState } from 'react';
+
 import { JobPostingType } from "./config";
 
 export function JobPostingBase<T>(Renderer: ComponentType<T>) {
@@ -8,7 +9,7 @@ export function JobPostingBase<T>(Renderer: ComponentType<T>) {
         
         const onDetailsClick = () => {
             console.log('on detail click');
-            setViewCount(viewCount + 1);
+            setViewCount(viewCount + 1); 
         };
 
         return <Renderer {...(props as T)} onDetailsClicks={onDetailsClick} viewCount={viewCount}/>;
