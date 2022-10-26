@@ -1,7 +1,6 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { JobPostingType } from '../config/componentTypes';
-
+import { JobPostingType } from "../components/JobPosting/config";
 const Wrapper = styled('div', {
     fontSize: '13px',
     padding: '10px',
@@ -18,14 +17,15 @@ const Wrapper = styled('div', {
 type Props = {
     onDetailsClick: () => void;
     viewCount: number;
+    favoriteDom?: JSX.Element;
 };
 
 const JobPostingRenderer = (props: Props & JobPostingType) => {
-    const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount } = props;
-    console.log(props);
+    const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount, favoriteDom } = props;
+    
     return (
         <Wrapper css={{ ...css }}>
-            <h1>{title}</h1>
+            {/* <Title title='title' /> */}
             {viewCount && <p>View count: {viewCount}</p>}
             <p>{description}</p>
             {company && (
@@ -36,7 +36,9 @@ const JobPostingRenderer = (props: Props & JobPostingType) => {
             )}
             <br />
             <br />
+            {favoriteDom}
             <button className='view-btn' onClick={onDetailsClick}>View Details</button>
+
         </Wrapper>
     );
 };

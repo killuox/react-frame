@@ -1,6 +1,5 @@
 import React, { ComponentType, useState } from 'react';
-import useRender from '../../hooks/useRender';
-import { JobPostingType } from '../../config/componentTypes';
+import { JobPostingType } from "./config";
 
 export function JobPostingBase<T>(Renderer: ComponentType<T>) {
     return (props: JobPostingType ) => {

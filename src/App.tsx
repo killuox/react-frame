@@ -1,6 +1,5 @@
-import { JobPosting } from './components/JobPosting/jobPostingOptions';
+import { JobPosting } from './components/JobPosting/config';
 function App() {
-    console.log(JobPosting);
     return (
         <div className="App">
             <JobPosting
