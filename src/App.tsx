@@ -1,16 +1,18 @@
-import JobPosting from './components/JobPosting';
+import {JobPosting} from './components/JobPosting/JobPosting';
 import NewJobPostingRenderer from './renderers/NewJobPostingRenderer';
+import { withFavorite } from './components/JobPosting/functionnality/withFavorite';
+const JobPostingComp = JobPosting(NewJobPostingRenderer);
+
 function App() {
     return (
         <div className="App">
-            <JobPosting
+            <JobPostingComp
                 title="Software Engineer"
                 description="Im a job posting description"
                 company="Amazon"
                 onCompanyClick={() => {
                     console.log('on company click');
                 }}
-                // renderer={NewJobPostingRenderer}
                 css={{
                     border: '5px solid pink',
                     "&:hover": {
