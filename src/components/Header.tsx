@@ -9,6 +9,7 @@ type Props = {
 };
 
 const Header = (props: Props) => {
+    return null;
     return useRender({ name: 'header', componentProps: props });
 };
 

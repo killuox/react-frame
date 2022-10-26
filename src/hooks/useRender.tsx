@@ -9,14 +9,14 @@ type Props = {
 const useRender = (props: Props) => {
     const { name, componentProps } = props;
     const config = componentConfig[name];
-    const { renderer, disabledProps } = config;
+    const { renderer, } = config;
     const Renderer = useMemo(() => formatRender(), [config, componentProps.renderer]);
 
     function formatRender() {
         // Remove props that are disabled by config
-        disabledProps.forEach((prop: string) => {
-            delete componentProps[prop];
-        });
+        // disabledProps.forEach((prop: string) => {
+        //     delete componentProps[prop];
+        // });
         return componentProps.renderer || renderer;
     }
 

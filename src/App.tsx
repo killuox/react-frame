@@ -1,12 +1,9 @@
-import {JobPosting} from './components/JobPosting/JobPosting';
-import NewJobPostingRenderer from './renderers/NewJobPostingRenderer';
-import { withFavorite } from './components/JobPosting/functionnality/withFavorite';
-const JobPostingComp = JobPosting(NewJobPostingRenderer);
-
+import { JobPosting } from './components/JobPosting/jobPostingOptions';
 function App() {
+    console.log(JobPosting);
     return (
         <div className="App">
-            <JobPostingComp
+            <JobPosting
                 title="Software Engineer"
                 description="Im a job posting description"
                 company="Amazon"
@@ -15,13 +12,12 @@ function App() {
                 }}
                 css={{
                     border: '5px solid pink',
-                    "&:hover": {
+                    '&:hover': {
                         backgroundColor: 'lightblue',
                     },
-                    ".view-btn": {
-                        color: "white",
-                    }
-
+                    '.view-btn': {
+                        color: 'white',
+                    },
                 }}
             />
         </div>

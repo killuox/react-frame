@@ -13,11 +13,12 @@ const Wrapper = styled('div', {
 type Props = {
     onDetailsClick: () => void;
     viewCount: number;
+    test: 'test';
 };
 
 const JobPostingRenderer = (props: Props & JobPostingType) => {
     const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount } = props;
-
+    console.log('renderer', props)
     return (
         <Wrapper css={{ ...css }}>
             <h1>{title}</h1>

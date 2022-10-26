@@ -22,7 +22,7 @@ type Props = {
 
 const JobPostingRenderer = (props: Props & JobPostingType) => {
     const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount } = props;
-
+    console.log(props);
     return (
         <Wrapper css={{ ...css }}>
             <h1>{title}</h1>

@@ -2,11 +2,8 @@ import React, { ComponentType, useState } from 'react';
 import useRender from '../../hooks/useRender';
 import { JobPostingType } from '../../config/componentTypes';
 
-type Props = {
-    renderer?: React.FC<any>;
-};
-export function JobPosting<T>(Renderer: ComponentType<any>) {
-    return (props: T) => {
+export function JobPostingBase<T>(Renderer: ComponentType<T>) {
+    return (props: JobPostingType ) => {
         // Logic here
         const [viewCount, setViewCount] = useState(0);
         
@@ -14,7 +11,7 @@ export function JobPosting<T>(Renderer: ComponentType<any>) {
             console.log('on detail click');
             setViewCount(viewCount + 1);
         };
-        
+
         return <Renderer {...(props as T)} onDetailsClicks={onDetailsClick} viewCount={viewCount}/>;
     };
 }
