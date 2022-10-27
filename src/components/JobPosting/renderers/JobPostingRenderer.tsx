@@ -25,7 +25,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
         onDetailsClick,
         viewCount,
         favoriteDom,
-        isLike,
+        isLike, 
     } = props;
     
     return (

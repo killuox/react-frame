@@ -12,10 +12,11 @@ const Wrapper = styled('div', {
 
 const NewJobPostingRenderer = (props: JobPostingRenderType) => {
     const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount } = props;
+    
     return (
         <Wrapper css={{ ...css }}>
             <h1>{title}</h1>
-            <p>View count: {viewCount}</p>
+            {viewCount && <p>View count: {viewCount}</p>}
             {company && (
                 <>
                     <span>{company}</span>

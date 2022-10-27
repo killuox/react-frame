@@ -31,5 +31,5 @@ export type JobPostingLikeType = JobPostingPropsType & {
     isLike: boolean;
 }
 
-// Render props (Place all type/props that you pass to the renderer here)
+// Render props (Place all props type that you pass to the renderer here)
 export type JobPostingRenderType = JobPostingPropsType & JobPostingBaseType & JobPostingFavoriteType & JobPostingLikeType;
