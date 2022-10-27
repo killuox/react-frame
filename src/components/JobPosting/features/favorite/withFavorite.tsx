@@ -24,7 +24,7 @@ export function withFavorite<T extends JobPostingFavoriteType>(Component: Compon
             backgroundColor: 'lightblue'},
         })
         
-        console.log(hocProps.css)
+      
         const featureProps = {
             isFavorite,
             onFavoriteClick,

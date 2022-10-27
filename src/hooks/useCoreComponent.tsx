@@ -10,7 +10,7 @@ type Props = {
     customRenderer?: ComponentType<any>;
 };
 
-const useFeatures = (props: Props) => {
+const useCoreComponent = (props: Props) => {
     const { componentConfig, BaseComponent, featuresOptions, customRenderer } = props;
     const { features, renderer } = componentConfig;
 
@@ -33,7 +33,7 @@ const useFeatures = (props: Props) => {
     return Component;
 };
 
-export default useFeatures;
+export default useCoreComponent;
 
 function BaseInjector<T extends JSX.IntrinsicAttributes>(Renderer: ComponentType<T>) {
     return (props: T) => {
