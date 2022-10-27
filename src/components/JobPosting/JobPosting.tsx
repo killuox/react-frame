@@ -1,8 +1,8 @@
 import React, { ComponentType, useState } from 'react';
 import useFeatures from '../../hooks/useFeatures';
 import { JobPostingType } from './config';
-import { withFavorite } from './functionality/favorite/withFavorite';
-import { withLike } from './functionality/like/withLike';
+import { withFavorite } from './features/favorite/withFavorite';
+import { withLike } from './features/like/withLike';
 
 const featuresOptions = {
     withFavorite: withFavorite,
