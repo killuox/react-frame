@@ -3,7 +3,7 @@ import { componentConfig } from '../config/component';
 
 type Props = {
     componentName: string;
-    BaseComponent: <T extends  JSX.IntrinsicAttributes>(Renderer: ComponentType<T>) => any;
+    BaseComponent: <T>(Component: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
 };
 
@@ -12,7 +12,7 @@ const useFeatures = (props: Props) => {
     const { features, renderer } = componentConfig[componentName];
 
     // Insert Renderer
-    let Component = BaseComponent(renderer);
+    let Component = BaseInjector(renderer);
 
     // Make sure it has features options
     if (featuresOptions) {
@@ -24,7 +24,17 @@ const useFeatures = (props: Props) => {
         });
     }
 
+    // Insert base here so features overwrite base methods and props
+    Component = BaseComponent(Component);
+
     return Component;
 };
 
 export default useFeatures;
+
+
+function BaseInjector<T extends  JSX.IntrinsicAttributes>(Renderer: ComponentType<T>) {
+    return (props: T) => {
+        return <Renderer {...props} />;
+    };
+}
