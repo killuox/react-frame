@@ -28,7 +28,7 @@ export type JobPostingFavoriteType = JobPostingPropsType & {
 
 // Like component props
 export type JobPostingLikeType = JobPostingPropsType & {
-    isLike: boolean;
+    isLiked: boolean;
 }
 
 // Render props (Place all props type that you pass to the renderer here)

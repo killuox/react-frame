@@ -25,7 +25,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
         onDetailsClick,
         viewCount,
         favoriteDom,
-        isLike, 
+        isLiked, 
     } = props;
     
     return (
@@ -33,7 +33,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
             <h1>{title}</h1>
             {viewCount && <p>View count: {viewCount}</p>}
             <p>{description}</p>
-            {isLike && <p>This post is liked by you</p>}
+            {isLiked && <p>This post is liked by you</p>}
             {company && (
                 <>
                     <span>{company}</span>
