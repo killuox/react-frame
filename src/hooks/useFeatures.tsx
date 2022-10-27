@@ -7,14 +7,15 @@ type Props = {
     }
     BaseComponent: <T>(Component: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
+    customRenderer?: ComponentType<any>;
 };
 
 const useFeatures = (props: Props) => {
-    const { componentConfig, BaseComponent, featuresOptions } = props;
+    const { componentConfig, BaseComponent, featuresOptions,customRenderer } = props;
     const { features, renderer } = componentConfig;
 
     // Insert Renderer
-    let Component = BaseInjector(renderer);
+    let Component = BaseInjector(customRenderer ?? renderer);
 
     // Make sure it has features options
     if (featuresOptions) {

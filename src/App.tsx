@@ -1,5 +1,5 @@
 import { JobPosting } from './components/JobPosting/JobPosting';
-
+import NewJobPostingRenderer from './components/JobPosting/renderers/NewJobPostingRenderer';
 function App() {
     return (
         <div className="App">
@@ -7,7 +7,7 @@ function App() {
                 title='Software Engineer'
                 description="Im a job posting description"
                 company="Amazon"
-                disableFavorite={true}
+                renderer={NewJobPostingRenderer}
                 onCompanyClick={() => {
                     console.log('on company click');
                 }}

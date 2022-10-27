@@ -38,6 +38,7 @@ export function withFavorite<T extends JobPostingFavoriteType>(Component: Compon
                 {...(hocProps as T & JobPostingFavoriteType)}
                 {...featureProps}
                 favoriteDom={<FavoriteRender {...featureProps} />}
+                viewCount={null}
             />
         );
     };

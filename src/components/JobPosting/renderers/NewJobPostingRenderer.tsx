@@ -10,13 +10,12 @@ const Wrapper = styled('div', {
     },
 });
 
-const JobPostingRenderer = (props: JobPostingRenderType) => {
+const NewJobPostingRenderer = (props: JobPostingRenderType) => {
     const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount } = props;
     return (
         <Wrapper css={{ ...css }}>
             <h1>{title}</h1>
             <p>View count: {viewCount}</p>
-            <p>{description}</p>
             {company && (
                 <>
                     <span>{company}</span>
@@ -30,4 +29,4 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
     );
 };
 
-export default JobPostingRenderer;
+export default NewJobPostingRenderer;

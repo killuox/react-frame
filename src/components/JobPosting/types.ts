@@ -12,6 +12,7 @@ export type JobPostingPropsType = {
     description: string;
     company?: string;
     onCompanyClick?: () => void;
+    renderer?: React.FC<any>;
 } & JobPostingDisableFeaturesType;
 
 // Base component props
