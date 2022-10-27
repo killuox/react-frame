@@ -22,8 +22,6 @@ export type JobPostingBaseType = {
 
 // Favorite component props
 export type JobPostingFavoriteType = JobPostingPropsType & {
-    isFavorite: boolean;
-    onFavoriteClick: () => void;
     favoriteDom: JSX.Element;
 }
 

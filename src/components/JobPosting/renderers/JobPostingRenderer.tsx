@@ -33,6 +33,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
             <h1>{title}</h1>
             <p>View count: {viewCount}</p>
             <p>{description}</p>
+            {isLike && <p>{isLike}</p>}
             {company && (
                 <>
                     <span>{company}</span>

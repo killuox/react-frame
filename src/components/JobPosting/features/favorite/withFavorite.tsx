@@ -1,6 +1,6 @@
 import { ComponentType, useState } from 'react';
 import FavoriteRender from './FavoriteRender';
-import { JobPostingPropsType, JobPostingFavoriteType } from '../../types';
+import { JobPostingFavoriteType } from '../../types';
 
 export function withFavorite<T extends JobPostingFavoriteType>(Component: ComponentType<T>) {
     return (hocProps: T) => {
