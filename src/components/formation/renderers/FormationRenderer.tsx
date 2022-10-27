@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { FormationType } from '../config';
+import { FormationRenderType } from '../types';
 
 const Wrapper = styled('div', {
     fontSize: '13px',
@@ -15,7 +15,7 @@ const Wrapper = styled('div', {
     },
 });
 
-const FormationRenderer = (props: FormationType) => {
+const FormationRenderer = (props: FormationRenderType) => {
     const {
         title,
         css,

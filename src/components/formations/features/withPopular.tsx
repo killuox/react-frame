@@ -1,8 +1,8 @@
 import { ComponentType, useState } from 'react';
-import { FormationsListType } from '../config';
+import { FormationsPopularType } from '../types';
 import PopularRender from './PopularRender';
 
-export function withPopular<T extends FormationsListType>(Component: ComponentType<T>) {
+export function withPopular<T extends FormationsPopularType>(Component: ComponentType<T>) {
     return (hocProps: T) => {
         // Make sure to skip feature if it is disabled
         if (hocProps.withPopular === false) {

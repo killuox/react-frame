@@ -1,6 +1,6 @@
 import type * as Stitches from '@stitches/react';
 
-export type FormationType = {
+export type FormationPropsType = {
     css?: Stitches.CSS;
     id: number,
     title: string,
@@ -10,3 +10,5 @@ export type FormationType = {
     position?: string,
     isPopular?: boolean,
 };
+
+export type FormationRenderType = FormationPropsType;

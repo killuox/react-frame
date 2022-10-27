@@ -1,16 +1,16 @@
 import React from 'react';
 import FormationRenderer from '../../formation/renderers/FormationRenderer';
 import { styled } from '@stitches/react';
-import { FormationType } from '../config';
+import { FormationPropsType } from '../../formation/types';
+import { FormationsPopularType } from '../types';
 
 const List = styled('div', {
     display: 'flex',
     gap: 15,
 });
 
-
 type Props = {
-    popularFormations: Array<FormationType>;
+    popularFormations: Array<FormationPropsType>;
 };
 
 const PopularRender = (props: Props) => {
@@ -18,7 +18,7 @@ const PopularRender = (props: Props) => {
         <>
           <h2>Popular Formations</h2>
             <List>
-            {props.popularFormations.map((formation: FormationType, index : number) => {                
+            {props.popularFormations.map((formation: FormationPropsType, index : number) => {                
                 return <FormationRenderer key={index} {...formation} css={{border: "2px solid red"}}/>;
             })}
             </List>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { FormationsListType } from '../config';
-import { FormationType } from '../config';
+import { FormationRenderType } from '../../formation/types';
+import { FormationsRenderType } from '../types';
 import FormationRenderer from '../../formation/renderers/FormationRenderer';
 
 const Wrapper = styled('div', {
@@ -16,16 +16,15 @@ const List = styled('div', {
 });
 
 
-const FormationsRenderer = (props: FormationsListType) => {
+const FormationsRenderer = (props: FormationsRenderType) => {
     const { formations, css } = props;
-    console.log(props)
     return (
         <Wrapper css={{ ...css }}>
             {props.popularDom}
 
             <h2>Formations List</h2>
             <List>
-            {formations.map((formation: FormationType, index : number) => {                
+            {formations.map((formation: FormationRenderType, index : number) => {                
                 return <FormationRenderer key={index} {...formation}/>;
             })}
             </List>

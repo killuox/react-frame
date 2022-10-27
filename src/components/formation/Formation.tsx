@@ -1,9 +1,7 @@
 import React, { ComponentType, useState } from 'react';
 import useFeatures from '../../hooks/useFeatures';
-import { FormationType } from './config';
+import { FormationPropsType } from './types';
 import { componentConfig } from '../../config/component';
-
-import data from '../../data.json';
 
 const featuresOptions = {
 
@@ -12,7 +10,7 @@ const featuresOptions = {
 };
 
 function FormationsBase<T>(Component: ComponentType<T>) {
-    return (props: FormationType) => {
+    return (props: FormationPropsType) => {
         // Logic here
 
         const baseProps = {}
@@ -20,7 +18,7 @@ function FormationsBase<T>(Component: ComponentType<T>) {
     };
 }
 
-export const Formations: (props: FormationType) => JSX.Element = (props) => {
+export const Formations: (props: FormationPropsType) => JSX.Element = (props) => {
     const Component = useFeatures({
         componentConfig: componentConfig['Formation'],
         BaseComponent: FormationsBase,
