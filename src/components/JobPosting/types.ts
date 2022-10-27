@@ -5,7 +5,7 @@ export type JobPostingDisableFeaturesType = {
     disableFavorite?: boolean;
 };
 
-// Place props that you want to pass to the component here
+// Place props that you pass to the component here
 export type JobPostingPropsType = {
     title: string;
     css?: Stitches.CSS;
@@ -32,4 +32,4 @@ export type JobPostingLikeType = JobPostingPropsType & {
 }
 
 // Render props (Place all props type that you pass to the renderer here)
-export type JobPostingRenderType = JobPostingPropsType & JobPostingBaseType & JobPostingFavoriteType & JobPostingLikeType;
+export type JobPostingRenderType = JobPostingPropsType & JobPostingBaseType  & JobPostingLikeType & JobPostingFavoriteType;

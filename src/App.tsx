@@ -7,6 +7,7 @@ function App() {
                 title='Software Engineer'
                 description="Im a job posting description"
                 company="Amazon"
+                disableFavorite={true}
                 // renderer={NewJobPostingRenderer}
                 onCompanyClick={() => {
                     console.log('on company click');
