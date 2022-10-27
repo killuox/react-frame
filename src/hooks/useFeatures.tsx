@@ -9,12 +9,10 @@ type Props = {
 
 const useFeatures = (props: Props) => {
     const { componentName, BaseComponent, featuresOptions } = props;
-
-    const Renderer = componentConfig[componentName].renderer;
-    const { features } = componentConfig[componentName];
+    const { features, renderer } = componentConfig[componentName];
 
     // Insert Renderer
-    let Component = BaseComponent(Renderer);
+    let Component = BaseComponent(renderer);
 
     // Make sure it has features options
     if (featuresOptions) {
