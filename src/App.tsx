@@ -1,9 +1,10 @@
-import { JobPosting } from './components/JobPosting/config';
+import { JobPosting } from './components/JobPosting/JobPosting';
+
 function App() {
     return (
         <div className="App">
             <JobPosting
-                title="Software Engineer"
+                title='Software Engineer'
                 description="Im a job posting description"
                 company="Amazon"
                 showHover={false}

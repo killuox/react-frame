@@ -1,17 +1,17 @@
 import React, { ComponentType } from 'react';
 import { JobPostingType } from '../components/JobPosting/config';
-import JobPostingRenderer from '../renderers/JobPostingRenderer';
+import JobPostingRenderer from '../components/JobPosting/renderer/JobPostingRenderer';
 
 export const componentConfig = {
     jobPosting: {
         renderer: JobPostingRenderer,
         features: [
             {
-                name: 'favorite',
+                name: 'withFavorite',
                 enabled: true,
             },
             {
-                name: 'like',
+                name: 'withLike',
                 enabled: true,
             },
         ],
@@ -24,26 +24,4 @@ export const componentConfig = {
             enabled: boolean;
         }[];
     };
-};
-
-export const getComponentConfig = (
-    componentName: string,
-    //@ts-ignore
-    BaseComponent: <T extends unknown>(Renderer: ComponentType<T>) => (props: T | any) => JSX.Element,
-    featuresOptions: { [key: string]: React.FC<any> }, 
-) => {
-    const Renderer = componentConfig[componentName].renderer;
-    const { features } = componentConfig[componentName];
-
-    let Component = BaseComponent(Renderer);
-    
-    features.forEach((feature: { name: string; enabled: boolean }) => {
-        if (featuresOptions[feature.name] && feature.enabled) {
-            // Wrap job posting base
-            // @ts-ignore
-            Component = featuresOptions[feature.name](Component);
-        }
-    });
-
-    return Component;
 };

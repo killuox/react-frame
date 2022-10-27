@@ -8,10 +8,10 @@ type Props = {
     onFavoriteClick: () => void;
 };
 
-const withFavoriteRender = (props: Props) => {
+const FavoriteRender = (props: Props) => {
     return (
         <Wrapper onClick={props.onFavoriteClick}>{props.isFavorite ? 'Unfavorite' : 'Favorite'}</Wrapper>
     );
 };
 
-export default withFavoriteRender;
+export default FavoriteRender;
