@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { JobPostingType } from '../config';
+import { JobPostingRenderType } from '../types';
 
 const Wrapper = styled('div', {
     padding: '10px',
@@ -10,13 +10,7 @@ const Wrapper = styled('div', {
     },
 });
 
-type Props = {
-    onDetailsClick: () => void;
-    viewCount: number;
-    test: 'test';
-};
-
-const JobPostingRenderer = (props: Props & JobPostingType) => {
+const JobPostingRenderer = (props: JobPostingRenderType) => {
     const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount } = props;
     return (
         <Wrapper css={{ ...css }}>

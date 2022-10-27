@@ -7,8 +7,7 @@ function App() {
                 title='Software Engineer'
                 description="Im a job posting description"
                 company="Amazon"
-                showHover={false}
-                withFavorite={true}
+                disableFavorite={true}
                 onCompanyClick={() => {
                     console.log('on company click');
                 }}

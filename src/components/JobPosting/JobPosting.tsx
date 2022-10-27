@@ -1,6 +1,6 @@
 import React, { ComponentType, useState } from 'react';
 import useFeatures from '../../hooks/useFeatures';
-import { JobPostingType } from './config';
+import { JobPostingPropsType } from './types';
 import { withFavorite } from './features/favorite/withFavorite';
 import { withLike } from './features/like/withLike';
 import { componentConfig } from '../../config/component';
@@ -13,7 +13,7 @@ const featuresOptions = {
 };
 
 function JobPostingBase<T>(Component: ComponentType<T>) {
-    return (props: JobPostingType) => {
+    return (props: JobPostingPropsType) => {
         // Logic here
         const [viewCount, setViewCount] = useState(0);
 
@@ -22,11 +22,13 @@ function JobPostingBase<T>(Component: ComponentType<T>) {
             setViewCount(viewCount + 1);
         };
 
-        return <Component {...(props as T)} onDetailsClick={onDetailsClick} viewCount={viewCount} />;
+        return (
+            <Component {...(props as T)} onDetailsClick={onDetailsClick} viewCount={viewCount} />
+        );
     };
 }
 
-export const JobPosting: (props: JobPostingType) => JSX.Element = (props) => {
+export const JobPosting: (props: JobPostingPropsType) => JSX.Element = (props: JobPostingPropsType) => {
     const Component = useFeatures({
         componentConfig: componentConfig['JobPosting'],
         BaseComponent: JobPostingBase,

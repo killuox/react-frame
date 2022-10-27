@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { JobPostingType } from '../config';
+import { JobPostingRenderType } from '../types';
 
 const Wrapper = styled('div', {
     fontSize: '13px',
@@ -15,13 +15,7 @@ const Wrapper = styled('div', {
     },
 });
 
-type Props = {
-    onDetailsClick: () => void;
-    viewCount: number;
-    favoriteDom?: JSX.Element;
-};
-
-const JobPostingRenderer = (props: Props & JobPostingType) => {
+const JobPostingRenderer = (props: JobPostingRenderType) => {
     const {
         title,
         css,
@@ -37,7 +31,6 @@ const JobPostingRenderer = (props: Props & JobPostingType) => {
     return (
         <Wrapper css={{ ...css }}>
             <h1>{title}</h1>
-            <p>{isLike ? 'You already like this post' : 'like'}</p>
             <p>View count: {viewCount}</p>
             <p>{description}</p>
             {company && (

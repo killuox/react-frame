@@ -1,6 +1,6 @@
 import { ComponentType, useState } from 'react';
-
-export function withLike<T>(Component: ComponentType<T>) {
+import { JobPostingLikeType } from '../../types';
+export function withLike<T extends JobPostingLikeType>(Component: ComponentType<T>) {
     return (hocProps: T) => {
         const [isLike, setIsLike] = useState<boolean>(true);
 
@@ -8,6 +8,6 @@ export function withLike<T>(Component: ComponentType<T>) {
             setIsLike(!isLike);
         };
 
-        return <Component {...(hocProps as T)} isLike={isLike} onLikeClick={onLikeClick} />;
+        return <Component {...(hocProps as T & JobPostingLikeType)} isLike={isLike} onLikeClick={onLikeClick} />;
     };
 }
