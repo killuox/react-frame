@@ -4,7 +4,6 @@ import { JobPostingType } from '../../config';
 
 export function withFavorite<T extends JobPostingType>(Component: ComponentType<T>) {
     return (hocProps: T) => {
-        
         // Make sure to skip feature if it is disabled
         if (hocProps.withFavorite === false) {
             return <Component {...(hocProps as T)} />;

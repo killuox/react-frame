@@ -1,13 +1,13 @@
-import { ComponentType, useState } from "react";
+import { ComponentType, useState } from 'react';
 
 export function withLike<T>(Component: ComponentType<T>) {
-  return (hocProps: Omit<T, 'isLike' | "onLikeClick">) => {
-    const [isLike, setIsLike] = useState<boolean>(false);
+    return (hocProps: Omit<T, 'isLike' | 'onLikeClick'>) => {
+        const [isLike, setIsLike] = useState<boolean>(true);
 
-    const onLikeClick = () => {
-        setIsLike(!isLike);
+        const onLikeClick = () => {
+            setIsLike(!isLike);
+        };
+
+        return <Component {...(hocProps as T)} isLike={isLike} onLikeClick={onLikeClick} />;
     };
-    
-    return <Component {...(hocProps as T)} isLike={isLike} onLikeClick={onLikeClick} />;
-  };
 }

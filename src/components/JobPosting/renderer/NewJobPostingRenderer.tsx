@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { JobPostingType } from "../config";
+import { JobPostingType } from '../config';
 
 const Wrapper = styled('div', {
     padding: '10px',

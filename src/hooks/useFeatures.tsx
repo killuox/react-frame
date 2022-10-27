@@ -12,19 +12,20 @@ const useFeatures = (props: Props) => {
 
     const Renderer = componentConfig[componentName].renderer;
     const { features } = componentConfig[componentName];
-    
+
     // Insert Renderer
     let Component = BaseComponent(Renderer);
 
+    // Make sure it has features options
     if (featuresOptions) {
-        features.forEach((feature: { name: string; enabled: boolean }) => {
-            if (featuresOptions[feature.name] && feature.enabled) {
-                // Wrap job posting base component with feature component
-                (Component as any) = featuresOptions[feature.name](Component);
+        features.forEach(({ name, enabled }: { name: string; enabled: boolean }) => {
+            if (featuresOptions[name] && enabled) {
+                // Wrap job posting base component with injected feature
+                (Component as any) = featuresOptions[name](Component);
             }
         });
     }
-  
+
     return Component;
 };
 

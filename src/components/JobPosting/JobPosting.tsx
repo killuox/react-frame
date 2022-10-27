@@ -8,7 +8,7 @@ const featuresOptions = {
     withFavorite: withFavorite,
     withLike: withLike,
 } as {
-    [key: string]: <T>(Component: ComponentType<T>) => any
+    [key: string]: <T>(Component: ComponentType<T>) => any;
 };
 
 function JobPostingBase<T>(Renderer: ComponentType<T>) {
@@ -26,6 +26,7 @@ function JobPostingBase<T>(Renderer: ComponentType<T>) {
         );
     };
 }
+
 export const JobPosting: (props: JobPostingType) => JSX.Element = useFeatures({
     componentName: 'jobPosting',
     BaseComponent: JobPostingBase,

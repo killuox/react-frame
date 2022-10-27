@@ -8,4 +8,5 @@ export type JobPostingType = {
     onCompanyClick?: () => void;
     showHover?: boolean;
     withFavorite?: boolean;
+    isLike?: boolean;
 };

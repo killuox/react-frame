@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@stitches/react';
-import { JobPostingType } from "../config";
+import { JobPostingType } from '../config';
 
 const Wrapper = styled('div', {
     fontSize: '13px',
@@ -9,10 +9,10 @@ const Wrapper = styled('div', {
     '&:hover': {
         backgroundColor: 'lightgray',
     },
-    ".view-btn": {
-        color: "red",
-        backgroundColor: "blue",
-    }
+    '.view-btn': {
+        color: 'red',
+        backgroundColor: 'blue',
+    },
 });
 
 type Props = {
@@ -22,12 +22,25 @@ type Props = {
 };
 
 const JobPostingRenderer = (props: Props & JobPostingType) => {
-    const { title, css, description, company, onCompanyClick, onDetailsClick, viewCount, favoriteDom } = props;
-    
+    const {
+        title,
+        css,
+        description,
+        company,
+        onCompanyClick,
+        onDetailsClick,
+        viewCount,
+        favoriteDom,
+        isLike,
+    } = props;
+
+    console.log(isLike);
+
     return (
         <Wrapper css={{ ...css }}>
-            {/* <Title title='title' /> */}
-            {viewCount && <p>View count: {viewCount}</p>}
+            <h1>{title}</h1>
+            <p>{isLike ? 'You already like this post' : 'like'}</p>
+            <p>View count: {viewCount}</p>
             <p>{description}</p>
             {company && (
                 <>
@@ -38,8 +51,9 @@ const JobPostingRenderer = (props: Props & JobPostingType) => {
             <br />
             <br />
             {favoriteDom}
-            <button className='view-btn' onClick={onDetailsClick}>View Details</button>
-
+            <button className="view-btn" onClick={onDetailsClick}>
+                View Details
+            </button>
         </Wrapper>
     );
 };
