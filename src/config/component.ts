@@ -1,5 +1,4 @@
-import React, { ComponentType } from 'react';
-import { JobPostingType } from '../components/JobPosting/config';
+import React from 'react';
 import JobPostingRenderer from '../components/JobPosting/renderer/JobPostingRenderer';
 
 export const componentConfig = {
