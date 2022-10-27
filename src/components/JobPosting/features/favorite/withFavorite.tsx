@@ -1,6 +1,7 @@
 import { ComponentType, useState } from 'react';
 import FavoriteRender from './FavoriteRender';
 import { JobPostingFavoriteType } from '../../types';
+import { mergeCss } from '../../../utils/css';
 
 export function withFavorite<T extends JobPostingFavoriteType>(Component: ComponentType<T>) {
     return (hocProps: T) => {
@@ -18,14 +19,12 @@ export function withFavorite<T extends JobPostingFavoriteType>(Component: Compon
         const onDetailsClick = () => {
             console.log('on Details click favorite');
         };
-
-        const css = {
-            ...hocProps.css,
-            '&:hover': {
-                backgroundColor: 'lightGreen',
-            },
-        };
-
+       
+        const css= mergeCss({...hocProps.css}, {'&:hover': {
+            backgroundColor: 'lightblue'},
+        })
+        
+        console.log(hocProps.css)
         const featureProps = {
             isFavorite,
             onFavoriteClick,

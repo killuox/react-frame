@@ -15,6 +15,10 @@ export const componentConfig = {
                 name: 'like',
                 enabled: true,
             },
+            {
+                name: 'share',
+                enabled: false,
+            },
         ],
     },
     Formation: {
