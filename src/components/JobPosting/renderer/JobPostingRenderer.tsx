@@ -34,8 +34,6 @@ const JobPostingRenderer = (props: Props & JobPostingType) => {
         isLike,
     } = props;
 
-    console.log(isLike);
-
     return (
         <Wrapper css={{ ...css }}>
             <h1>{title}</h1>
