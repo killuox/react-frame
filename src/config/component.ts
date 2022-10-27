@@ -1,5 +1,5 @@
 import React from 'react';
-import JobPostingRenderer from '../components/JobPosting/renderer/JobPostingRenderer';
+import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
 
 export const componentConfig = {
     jobPosting: {
