@@ -1,0 +1,78 @@
+{
+    "formations" : [
+        {
+            "id": "1",
+            "title": "Apprendre à programmer en Python",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-25",
+            "isPopular": true
+        },
+        {
+            "id": "2",
+            "title": "Apprendre à programmer en C++",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-26",
+            "isPopular": false
+        },
+        {
+            "id": "3",
+            "title": "Apprendre à programmer en C#",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-27",
+            "isPopular": true
+        },
+        {
+            "id": "4",
+            "title": "Apprendre à programmer en C#",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-27",
+            "isPopular": false
+        },
+        {
+            "id": "5",
+            "title": "Apprendre à programmer en C#",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-27",
+            "isPopular": true
+        },
+        {
+            "id": "6",
+            "title": "Apprendre à programmer en C#",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-27",
+            "isPopular": true
+        }
+    ],
+    "popular": [
+        {
+            "id": "1",
+            "title": "NEW - Apprendre à programmer en Ruby",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-27",
+            "isPopular": true
+        },
+        {
+            "id": "2",
+            "title": "NEW - Apprendre à programmer en TypeScript",
+            "description": "Some description",
+            "formateur": "Michael Lacroix",
+            "position": "CEO",
+            "date": "2022-05-27",
+            "isPopular": true
+        }
+    ]
+}

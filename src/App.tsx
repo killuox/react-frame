@@ -1,5 +1,8 @@
 import { JobPosting } from './components/JobPosting/JobPosting';
 import NewJobPostingRenderer from './components/JobPosting/renderers/NewJobPostingRenderer';
+import { Formations } from './components/formations/Formations';
+
+
 function App() {
     return (
         <div className="App">
@@ -22,6 +25,12 @@ function App() {
                     },
                 }}
             />
+            <div style={{ display: 'flex', flexDirection: "column" }}>
+
+                <h1>Formations</h1>
+                <Formations />        
+                
+            </div>
         </div>
     );
 }
