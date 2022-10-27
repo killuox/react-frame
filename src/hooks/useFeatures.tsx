@@ -20,7 +20,7 @@ const useFeatures = (props: Props) => {
     if (featuresOptions) {
         features.forEach(({ name, enabled }: { name: string; enabled: boolean }) => {
             if (featuresOptions[name] && enabled) {
-                // Wrap job posting base component with injected feature
+                // Wrap base component with injected feature
                 (Component as any) = featuresOptions[name](Component);
             }
         });
