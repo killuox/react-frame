@@ -7,7 +7,7 @@ function App() {
                 title='Software Engineer'
                 description="Im a job posting description"
                 company="Amazon"
-                renderer={NewJobPostingRenderer}
+                // renderer={NewJobPostingRenderer}
                 onCompanyClick={() => {
                     console.log('on company click');
                 }}

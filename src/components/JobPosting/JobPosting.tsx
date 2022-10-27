@@ -6,8 +6,8 @@ import { withLike } from './features/like/withLike';
 import { componentConfig } from '../../config/component';
 
 const featuresOptions = {
-    withFavorite: withFavorite,
-    withLike: withLike,
+    favorite: withFavorite,
+    like: withLike,
 } as {
     [key: string]: <T>(Component: ComponentType<T>) => any;
 };

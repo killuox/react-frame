@@ -6,11 +6,11 @@ export const componentConfig = {
         renderer: JobPostingRenderer,
         features: [
             {
-                name: 'withFavorite',
+                name: 'favorite',
                 enabled: true,
             },
             {
-                name: 'withLike',
+                name: 'like',
                 enabled: true,
             },
         ],
