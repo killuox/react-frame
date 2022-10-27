@@ -13,10 +13,6 @@ export const componentConfig = {
                 name: 'withLike',
                 enabled: true,
             },
-            {
-                name: 'withBase',
-                enabled: true,
-            },
         ],
     },
 } as {
