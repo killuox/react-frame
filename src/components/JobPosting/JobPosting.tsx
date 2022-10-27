@@ -3,6 +3,7 @@ import useFeatures from '../../hooks/useFeatures';
 import { JobPostingType } from './config';
 import { withFavorite } from './features/favorite/withFavorite';
 import { withLike } from './features/like/withLike';
+import { componentConfig } from '../../config/component';
 
 const featuresOptions = {
     withFavorite: withFavorite,
@@ -27,7 +28,7 @@ function JobPostingBase<T>(Component: ComponentType<T>) {
 
 export const JobPosting: (props: JobPostingType) => JSX.Element = (props) => {
     const Component = useFeatures({
-        componentName: 'jobPosting',
+        componentConfig: componentConfig['JobPosting'],
         BaseComponent: JobPostingBase,
         featuresOptions: featuresOptions,
     });

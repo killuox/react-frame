@@ -1,15 +1,17 @@
 import React, {ComponentType} from 'react';
-import { componentConfig } from '../config/component';
 
 type Props = {
-    componentName: string;
+    componentConfig: {
+        features: { name: string; enabled: boolean }[];
+        renderer: ComponentType<any>;
+    }
     BaseComponent: <T>(Component: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
 };
 
 const useFeatures = (props: Props) => {
-    const { componentName, BaseComponent, featuresOptions } = props;
-    const { features, renderer } = componentConfig[componentName];
+    const { componentConfig, BaseComponent, featuresOptions } = props;
+    const { features, renderer } = componentConfig;
 
     // Insert Renderer
     let Component = BaseInjector(renderer);

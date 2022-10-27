@@ -2,7 +2,7 @@ import React from 'react';
 import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
 
 export const componentConfig = {
-    jobPosting: {
+    JobPosting: {
         renderer: JobPostingRenderer,
         features: [
             {
