@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import { componentConfig } from '../config/component';
 
 type Props = {
     componentName: string;
-    BaseComponent: <T>(Renderer: React.ComponentType<T>) => (props: any) => JSX.Element;
+    BaseComponent: <T extends  JSX.IntrinsicAttributes>(Renderer: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
 };
 

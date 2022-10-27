@@ -15,11 +15,8 @@ export function withFavorite<T extends JobPostingType>(Component: ComponentType<
             setIsFavorite(!isFavorite);
         };
 
-        const onCompanyClick = () => {
-            console.log('on company click favorite');
-            if (hocProps.onCompanyClick) {
-                hocProps.onCompanyClick();
-            }
+        const onDetailsClick = () => {
+            console.log('on Details click favorite');
         };
 
         const css = {
@@ -32,7 +29,7 @@ export function withFavorite<T extends JobPostingType>(Component: ComponentType<
         const featureProps = {
             isFavorite,
             onFavoriteClick,
-            onCompanyClick,
+            onDetailsClick,
             css,
         };
 

@@ -1,7 +1,7 @@
 import { ComponentType, useState } from 'react';
 
 export function withLike<T>(Component: ComponentType<T>) {
-    return (hocProps: Omit<T, 'isLike' | 'onLikeClick'>) => {
+    return (hocProps: T) => {
         const [isLike, setIsLike] = useState<boolean>(true);
 
         const onLikeClick = () => {

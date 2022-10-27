@@ -1,6 +1,7 @@
 import type * as Stitches from '@stitches/react';
 
 export type JobPostingType = {
+    onDetailsClick?: () => void;
     title: string;
     css?: Stitches.CSS;
     description: string;
