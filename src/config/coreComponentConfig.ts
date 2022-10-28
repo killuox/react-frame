@@ -37,7 +37,6 @@ export class CoreComponentConfig {
         this.createConfigStructure();
         // JobPosting
         this.enableFeature('JobPosting', 'favorite');
-        // FormationsList
 
         console.log('Test: ', this.componentConfig);
     }
@@ -49,7 +48,6 @@ export class CoreComponentConfig {
                 BaseComponent: this.getBaseComponent(componentKey),
                 enabledFeatures: [],
                 features: componentFeatures[componentKey].features || [],
-                injectedFeatures: componentFeatures[componentKey].injectedFeatures || [],
             };
         });
     }
@@ -84,6 +82,10 @@ export class CoreComponentConfig {
             RendererComponent = FormationRenderer;
         }
         return RendererComponent;
+    }
+
+    public static getEnabledFeaturesComponent(componentName: string) {
+        
     }
 
     // Return list of all components with their configs
@@ -166,6 +168,8 @@ export class CoreComponentConfig {
             console.error(e);
         }
     }
+
+
 
     public getInjectedFeatures(componentName: string) {
         return CoreComponentConfig.componentConfig[componentName].injectedFeatures;
