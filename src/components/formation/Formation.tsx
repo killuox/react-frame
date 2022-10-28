@@ -1,7 +1,6 @@
-import React, { ComponentType, useState } from 'react';
+import React, { ComponentType } from 'react';
 import useFeatures from '../../hooks/useCoreComponent';
 import { FormationPropsType } from './types';
-import { componentConfig } from '../../config/component';
 
 const featuresOptions = {
 
@@ -10,11 +9,10 @@ const featuresOptions = {
 };
 
 export const Formations: (props: FormationPropsType) => JSX.Element = (props) => {
-    const Component = useFeatures({
-        componentConfig: componentConfig['Formation'],
-        featuresOptions: featuresOptions,
-        coreComponentKey: 'Formation',
-    });
+    const Component = useFeatures(
+        'Formation',
+        props,
+    );
 
     return <Component {...props} />;
 };
