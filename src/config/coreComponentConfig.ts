@@ -4,20 +4,17 @@ import { componentFeatures } from './component';
 import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
 import FormationRenderer from '../components/formation/renderers/FormationRenderer';
 import FormationsListRenderer from '../components/formations/renderers/FormationsListRenderer';
-
 import JobPostingBase from '../components/JobPosting/JobPostingBase';
 import FormationsBase from '../components/formations/FormationsBase';
 
 export class CoreComponentConfig {
-    public static components: string [] = [
-        'JobPosting',
-        'Formation',
-        'Formations'
-    ];
-    
+    public static components: string[] = ['JobPosting', 'Formation', 'Formations'];
+
     // #region Singleton pattern
     // Implement singleton pattern to make sure we have only one instance of the config
     private static instance: CoreComponentConfig;
+
+    public static componentConfig = {} as any;
 
     public static getInstance(): CoreComponentConfig {
         if (!CoreComponentConfig.instance) {
@@ -28,106 +25,75 @@ export class CoreComponentConfig {
 
     //#endregion
 
-    public constructor(){
-        const componentConfig = {};
-    }
-    
-    
+    public constructor() {}
+
     // TODO: Lazy import for all components renderer
     // TODO: Implements config for all components and use them in the app
     // TODO: Replace this.configs
 
-    public static init(){
-        console.log("%cConfig successfully initialized", 'color: green');
+    public static init() {
+        console.log('%cConfig successfully initialized', 'color: green');
 
         this.createConfigStructure();
-        console.log('Test: ', this.componentConfig)
+        // JobPosting
+        this.enableFeature('JobPosting', 'favorite');
+        // FormationsList
+
+        console.log('Test: ', this.componentConfig);
     }
 
-    private static createConfigStructure(){
-        this.components.forEach(componentKey => {
+    private static createConfigStructure() {
+        this.components.forEach((componentKey) => {
             this.componentConfig[componentKey] = {
                 renderer: this.getRendererComponent(componentKey),
                 BaseComponent: this.getBaseComponent(componentKey),
-            }
+                enabledFeatures: [],
+                features: componentFeatures[componentKey].features || [],
+                injectedFeatures: componentFeatures[componentKey].injectedFeatures || [],
+            };
         });
     }
-    
-    public static configs = {
-        JobPosting: {
-            renderer: JobPostingRenderer,
-            features: [
-                {
-                    name: 'favorite',
-                    enabled: true,
-                },
-                {
-                    name: 'like',
-                    enabled: true,
-                },
-            ],
-        },
-        Formation: {
-            renderer: FormationRenderer,
-            features: [
-    
-            ],
-        },
-        Formations:{
-            renderer: FormationsListRenderer,
-            features: [
-    
-            ]
-        }
-    } as {
-        [key: string]: {
-            renderer: React.FC<any>;
-            features: {
-                name: string;
-                enabled: boolean;
-            }[];
-        };
-    };
 
     // #region Configs management
 
     public static getBaseComponent(coreComponentKey: string) {
-        const path = coreComponentKey + 'Base';        
+        const path = coreComponentKey + 'Base';
         let BaseComponent;
 
         // const BaseComponent = import(/* @vite-ignore */`../components/${coreComponentKey}/${path}.tsx`);
         // const BaseComponent = React.lazy(() => import(`../components/${path}.tsx`));
 
-        if(coreComponentKey === 'Formations'){
+        if (coreComponentKey === 'Formations') {
             BaseComponent = FormationsBase;
-        }else if(coreComponentKey === 'JobPosting'){
+        } else if (coreComponentKey === 'JobPosting') {
             BaseComponent = JobPostingBase;
         }
         return BaseComponent as <T>(Component: ComponentType<T>) => any;
     }
 
-    static getRendererComponent(coreComponentKey: string){
-        //const path = `${coreComponentKey}/renderers/${coreComponentKey}Renderer`;
-        //const RendererComponent = React.lazy(() => import(/* @vite-ignore */`../components/${path}.tsx`));
+    public static getRendererComponent(coreComponentKey: string) {
+        const path = `${coreComponentKey}/renderers/${coreComponentKey}Renderer`;
+        // const RendererComponent = React.lazy(() => import(/* @vite-ignore */`../components/${path}.tsx`));
+        // const RendererComponent = import(`../components/${path}`);
         let RendererComponent;
-        if(coreComponentKey === 'Formations'){
-            RendererComponent = FormationsBase;
-        }else if(coreComponentKey === 'JobPosting'){
-            RendererComponent = JobPostingBase;
-        }else if(coreComponentKey === 'Formation'){
+        if (coreComponentKey === 'Formations') {
+            RendererComponent = FormationsListRenderer;
+        } else if (coreComponentKey === 'JobPosting') {
+            RendererComponent = JobPostingRenderer;
+        } else if (coreComponentKey === 'Formation') {
             RendererComponent = FormationRenderer;
         }
         return RendererComponent;
     }
 
     // Return list of all components with their configs
-    // static get allComponentsConfig(){
-    //     return componentConfig;
-    // }
+    static get allComponentsConfig() {
+        return CoreComponentConfig.componentConfig;
+    }
 
-    // // Return a component with their configs
-    public getComponentConfig(componentName: string){
-        return this.componentConfig[componentName];
+    // Return a component with their configs
+    public getComponentConfig(componentName: string) {
+        return CoreComponentConfig.componentConfig[componentName];
     }
 
     // Add a config to an existing component
@@ -164,18 +130,50 @@ export class CoreComponentConfig {
     //     }
     // }
 
-    // // Add a feature for a specific component
-    // static addFeature(componentName: string, featureName: string, enabled: boolean) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         component.features.push({
-    //             name: featureName,
-    //             enabled: enabled
-    //         });
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
+    // Add a feature for a specific component
+    static enableFeature(componentName: string, featureName: string) {
+        try {
+            const component = CoreComponentConfig.componentConfig[componentName];
+            const availableFeatures = this.componentConfig[componentName].features;
+
+            if (availableFeatures.includes(featureName)) {
+                component.enabledFeatures.push(featureName);
+            } else {
+                console.error(
+                    `Feature: ${featureName}, is not available for component ${componentName}`,
+                );
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    static disableFeature(componentName: string, featureName: string) {
+        try {
+            const component = CoreComponentConfig.componentConfig[componentName];
+            const availableFeatures = this.componentConfig[componentName].features;
+
+            if (availableFeatures.includes(featureName)) {
+                component.enabledFeatures = component.enabledFeatures.filter(
+                    (feature: string) => feature !== featureName,
+                );
+            } else {
+                console.error(
+                    `Feature: ${featureName}, is not available for component ${componentName}`,
+                );
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    public getInjectedFeatures(componentName: string) {
+        return CoreComponentConfig.componentConfig[componentName].injectedFeatures;
+    }
+
+    public getEnabledFeatures(componentName: string) {
+        return CoreComponentConfig.componentConfig[componentName].enabledFeatures;
+    }
 
     // Remove a feature for a specific component
     // static removeFeature(componentName: string, featureName: string) {

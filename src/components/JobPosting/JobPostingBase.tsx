@@ -11,9 +11,9 @@ export default function JobPostingBase<T>(Component: ComponentType<T>) {
         };
 
         return (
-            <Suspense fallback={<div>Loading...</div>}>
+        
                 <Component {...(props as T)}  onDetailsClick={onDetailsClick} viewCount={viewCount} />
-            </Suspense>
+        
         );
     };
 }

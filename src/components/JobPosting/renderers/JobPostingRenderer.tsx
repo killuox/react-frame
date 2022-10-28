@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import { styled } from '@stitches/react';
 import { JobPostingRenderType } from '../types';
 
@@ -35,6 +35,8 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
     } = props;
     
     return (
+     
+
         <Wrapper css={ css  }>
             <h1>{title}</h1>
             {viewCount && <p>View count: {viewCount}</p>}
@@ -54,6 +56,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
                 <p>im the paragraph</p>
             </button>
         </Wrapper>
+       
     );
 };
 
