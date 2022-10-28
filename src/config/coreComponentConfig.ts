@@ -7,6 +7,10 @@ import FormationsListRenderer from '../components/formations/renderers/Formation
 import JobPostingBase from '../components/JobPosting/JobPostingBase';
 import FormationsBase from '../components/formations/FormationsBase';
 
+import { withLike } from '../components/JobPosting/features/like/withLike';
+import { withPopular } from '../components/formations/features/withPopular';
+import { withFavorite } from '../components/JobPosting/features/favorite/withFavorite';
+
 export class CoreComponentConfig {
     public static components: string[] = ['JobPosting', 'Formation', 'Formations'];
 
@@ -84,8 +88,27 @@ export class CoreComponentConfig {
         return RendererComponent;
     }
 
-    public static getEnabledFeaturesComponent(componentName: string) {
+    public getEnabledFeaturesComponent(componentName: string) {
+        const enabledFeatures = CoreComponentConfig.componentConfig[componentName].enabledFeatures;
+
+        let featuresComponent: any = [];
+
+        if(componentName === 'JobPosting') {
+            featuresComponent = [withLike, withFavorite];
+        }else if(componentName === 'Formations') {
+            featuresComponent = [withPopular];
+        }
+
+        // TODO: Logic with dyanmic import
+        // enabledFeatures.forEach((featureName: string) => {
+        //     const path = featureName.toLowerCase() + '/with' + featureName;
+        //     const FeatureComponent = React.lazy(() => import(`../components/${componentName}/features/${path}.tsx`));
+
+        //     featuresComponent.push(FeatureComponent as <T>(Component: ComponentType<T>) => any);
+        //     featuresComponent.push(FeatureComponent );
+        // })    
         
+        return featuresComponent;
     }
 
     // Return list of all components with their configs
