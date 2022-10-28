@@ -38,14 +38,9 @@ export class CoreComponentConfig {
     public static init(){
         console.log("%cConfig successfully initialized", 'color: green');
 
-        this.addFeature('Formations', 'withPopular', true);
-        //console.log(this.allComponentsConfig)
-
         this.createConfigStructure();
         console.log('Test: ', this.testConfig)
-        // console.log(this.getComponentConfig('Formations')) 
     }
-
 
     private static createConfigStructure(){
         this.components.forEach(componentName => {
@@ -118,9 +113,16 @@ export class CoreComponentConfig {
     }
 
     static getRendererComponent(coreComponentKey: string){
-        const path = `${coreComponentKey}/renderers/${coreComponentKey}Renderer`;
-        const RendererComponent = React.lazy(() => import(/* @vite-ignore */`../components/${path}.tsx`));
-
+        //const path = `${coreComponentKey}/renderers/${coreComponentKey}Renderer`;
+        //const RendererComponent = React.lazy(() => import(/* @vite-ignore */`../components/${path}.tsx`));
+        let RendererComponent;
+        if(coreComponentKey === 'Formations'){
+            RendererComponent = FormationsBase;
+        }else if(coreComponentKey === 'JobPosting'){
+            RendererComponent = JobPostingBase;
+        }else if(coreComponentKey === 'Formation'){
+            RendererComponent = FormationRenderer;
+        }
         return RendererComponent;
     }
 
@@ -130,7 +132,7 @@ export class CoreComponentConfig {
     }
 
     // Return a component with their configs
-    static getComponentConfig(componentName: string){
+    public getComponentConfig(componentName: string){
         return componentConfig[componentName];
     }
 

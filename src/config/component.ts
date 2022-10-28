@@ -30,7 +30,10 @@ export const componentConfig = {
     Formations:{
         renderer: FormationsListRenderer,
         features: [
-
+            {
+                name: 'withPopular',
+                enabled: true,
+            }
         ]
     }
 } as {

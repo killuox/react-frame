@@ -15,7 +15,7 @@ type Props = {
 const useCoreComponent = (props: Props) => {
     const { componentConfig, featuresOptions, customRenderer, coreComponentKey } = props;
     const { features, renderer } = componentConfig;
-
+    // const { features, renderer} = CoreComponentConfig.getComponentConfig[coreComponentKey];
     const BaseComponent = CoreComponentConfig.getBaseComponent(coreComponentKey);
     
     // Insert Renderer
