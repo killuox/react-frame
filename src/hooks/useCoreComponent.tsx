@@ -1,33 +1,36 @@
 import React, { ComponentType } from 'react';
 import CoreComponentConfig from '../config/coreComponentConfig';
 
-type Props = {
-    componentConfig: {
-        features: { name: string; enabled: boolean }[];
-        renderer: ComponentType<any>;
-    };
-    // BaseComponent: <T>(Component: ComponentType<T>) => any;
-    featuresOptions?: { [key: string]: React.FC<any> };
-    customRenderer?: ComponentType<any>;
-    coreComponentKey: string;
-};
+// type Props = {
+//     componentConfig: {
+//         features: { feature: React.FC<any> }[];
+//         renderer: ComponentType<any>;
+//         injectedFeatures?: { feature: React.FC<any> }[];
+//     };
+//     // BaseComponent: <T>(Component: ComponentType<T>) => any;
+//     featuresOptions?: { [key: string]: React.FC<any> };
+//     customRenderer?: ComponentType<any>;
+//     coreComponentKey: string;
+// };
 
-const useCoreComponent = (props: Props) => {
-    const { componentConfig, featuresOptions, customRenderer, coreComponentKey } = props;
-    const { features, renderer } = componentConfig;
-    // const { features, renderer} = CoreComponentConfig.getComponentConfig[coreComponentKey];
-    const BaseComponent = CoreComponentConfig.getBaseComponent(coreComponentKey);
-    
+const useCoreComponent = (coreComponentKey: string, props: any, featuresOptions : { [key: string]: React.FC<any> }) => {
+   const { BaseComponent, features, renderer } = CoreComponentConfig.getComponentConfig(coreComponentKey);
+
     // Insert Renderer
-    let Component = BaseInjector(customRenderer ?? renderer);
+    let Component = BaseInjector(props.renderer ?? renderer);
 
-    // Make sure it has features options
-    if (featuresOptions) {
-        features.forEach(({ name, enabled }: { name: string; enabled: boolean }) => {
-            if (featuresOptions[name] && enabled) {
-                // Wrap base component with injected feature
-                (Component as any) = featuresOptions[name](Component);
-            }
+    let allFeatures = [...features];
+
+    // Add injected features
+    // if (injectedFeatures && injectedFeatures.length > 0) {
+    //     allFeatures = [...features, ...injectedFeatures];
+    // }
+
+    // Make sure we have features
+    if (allFeatures.length > 0) {
+        allFeatures.forEach(({ feature }: { feature: React.FC<any> }) => {
+            // Add feature to the component
+            (Component as any) = feature(Component);
         });
     }
 
