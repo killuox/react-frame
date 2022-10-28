@@ -2,8 +2,9 @@ import React, { ComponentType } from 'react';
 
 type Props = {
     componentConfig: {
-        features: { name: string; enabled: boolean }[];
+        features: { feature: React.FC<any> }[];
         renderer: ComponentType<any>;
+        injectedFeatures?: { feature: React.FC<any> }[];
     };
     BaseComponent: <T>(Component: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
@@ -12,18 +13,23 @@ type Props = {
 
 const useCoreComponent = (props: Props) => {
     const { componentConfig, BaseComponent, featuresOptions, customRenderer } = props;
-    const { features, renderer } = componentConfig;
+    const { features, renderer, injectedFeatures } = componentConfig;
 
     // Insert Renderer
     let Component = BaseInjector(customRenderer ?? renderer);
 
-    // Make sure it has features options
-    if (featuresOptions) {
-        features.forEach(({ name, enabled }: { name: string; enabled: boolean }) => {
-            if (featuresOptions[name] && enabled) {
-                // Wrap base component with injected feature
-                (Component as any) = featuresOptions[name](Component);
-            }
+    let allFeatures = [...features];
+
+    // Add injected features
+    if (injectedFeatures && injectedFeatures.length > 0) {
+        allFeatures = [...features, ...injectedFeatures];
+    }
+
+    // Make sure we have features
+    if (allFeatures.length > 0) {
+        allFeatures.forEach(({ feature }: { feature: React.FC<any> }) => {
+            // Add feature to the component
+            (Component as any) = feature(Component);
         });
     }
 
