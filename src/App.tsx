@@ -1,8 +1,6 @@
 import { JobPosting } from './components/JobPosting/JobPosting';
-import NewJobPostingRenderer from './components/JobPosting/renderers/NewJobPostingRenderer';
 import { Formations } from './components/formations/Formations';
-
-function App() {
+function App() {    
     return (
         <div className="App">
             <JobPosting

@@ -5,6 +5,8 @@ import { withFavorite } from './features/favorite/withFavorite';
 import { withLike } from './features/like/withLike';
 import { componentConfig } from '../../config/component';
 
+import { CoreComponentConfig } from '../../config/coreComponentConfig';
+
 const featuresOptions = {
     favorite: withFavorite,
     like: withLike,
@@ -29,7 +31,7 @@ function JobPostingBase<T>(Component: ComponentType<T>) {
 
 export const JobPosting: (props: JobPostingPropsType) => JSX.Element = (props: JobPostingPropsType) => {
     const Component = useFeatures({
-        componentConfig: componentConfig['JobPosting'],
+        componentConfig: CoreComponentConfig.configs['JobPosting'],
         BaseComponent: JobPostingBase,
         featuresOptions: featuresOptions,
         customRenderer: props.renderer,
