@@ -1,5 +1,5 @@
 import React, { ComponentType, useState } from 'react';
-import useFeatures from '../../hooks/useFeatures';
+import useFeatures from '../../hooks/useCoreComponent';
 import { FormationPropsType } from '../formation/types';
 import { FormationsListPropsType } from './types';
 import { withPopular } from './features/withPopular';

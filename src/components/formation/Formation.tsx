@@ -1,5 +1,5 @@
 import React, { ComponentType, useState } from 'react';
-import useFeatures from '../../hooks/useFeatures';
+import useFeatures from '../../hooks/useCoreComponent';
 import { FormationPropsType } from './types';
 import { componentConfig } from '../../config/component';
 

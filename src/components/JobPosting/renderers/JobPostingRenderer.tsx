@@ -8,10 +8,16 @@ const Wrapper = styled('div', {
     border: '1px solid red',
     '&:hover': {
         backgroundColor: 'lightgray',
+        "& p": {
+            color: 'red',
+        },
     },
     '.view-btn': {
         color: 'red',
         backgroundColor: 'blue',
+        "& p": {
+            color: 'green',
+        },
     },
 });
 
@@ -29,7 +35,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
     } = props;
     
     return (
-        <Wrapper css={{ ...css }}>
+        <Wrapper css={ css  }>
             <h1>{title}</h1>
             {viewCount && <p>View count: {viewCount}</p>}
             <p>{description}</p>
@@ -45,6 +51,7 @@ const JobPostingRenderer = (props: JobPostingRenderType) => {
             {favoriteDom}
             <button className="view-btn" onClick={onDetailsClick}>
                 View Details
+                <p>im the paragraph</p>
             </button>
         </Wrapper>
     );

@@ -1,5 +1,5 @@
 import React, { ComponentType, useState } from 'react';
-import useFeatures from '../../hooks/useFeatures';
+import useFeatures from '../../hooks/useCoreComponent';
 import { JobPostingPropsType } from './types';
 import { withFavorite } from './features/favorite/withFavorite';
 import { withLike } from './features/like/withLike';

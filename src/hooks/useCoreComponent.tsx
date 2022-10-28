@@ -1,17 +1,17 @@
-import React, {ComponentType} from 'react';
+import React, { ComponentType } from 'react';
 
 type Props = {
     componentConfig: {
         features: { name: string; enabled: boolean }[];
         renderer: ComponentType<any>;
-    }
+    };
     BaseComponent: <T>(Component: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
     customRenderer?: ComponentType<any>;
 };
 
-const useFeatures = (props: Props) => {
-    const { componentConfig, BaseComponent, featuresOptions,customRenderer } = props;
+const useCoreComponent = (props: Props) => {
+    const { componentConfig, BaseComponent, featuresOptions, customRenderer } = props;
     const { features, renderer } = componentConfig;
 
     // Insert Renderer
@@ -33,10 +33,9 @@ const useFeatures = (props: Props) => {
     return Component;
 };
 
-export default useFeatures;
+export default useCoreComponent;
 
-
-function BaseInjector<T extends  JSX.IntrinsicAttributes>(Renderer: ComponentType<T>) {
+function BaseInjector<T extends JSX.IntrinsicAttributes>(Renderer: ComponentType<T>) {
     return (props: T) => {
         return <Renderer {...props} />;
     };

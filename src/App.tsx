@@ -7,7 +7,7 @@ function App() {
                 title='Software Engineer'
                 description="Im a job posting description"
                 company="Amazon"
-                disableFavorite={true}
+                disableFavorite={false}
                 // renderer={NewJobPostingRenderer}
                 onCompanyClick={() => {
                     console.log('on company click');
@@ -16,17 +16,19 @@ function App() {
                     border: '5px solid pink',
                     '&:hover': {
                         backgroundColor: 'lightblue',
+                        "& p": {
+                            color: 'white'
+                        }
                     },
                     '.view-btn': {
-                        color: 'white',
+                        border: '1px solid red',
+                        backgroundColor: 'white',
                     },
                 }}
             />
             <div style={{ display: 'flex', flexDirection: "column" }}>
-
                 <h1>Formations</h1>
-                <Formations />        
-                
+                {/* <Formations />          */}
             </div>
         </div>
     );
