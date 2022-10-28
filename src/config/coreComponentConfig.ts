@@ -1,35 +1,56 @@
+import React, { ComponentType } from 'react';
 import { componentConfig } from './component';
 
 import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
 import FormationRenderer from '../components/formation/renderers/FormationRenderer';
 import FormationsListRenderer from '../components/formations/renderers/FormationsListRenderer';
 
+import JobPostingBase from '../components/JobPosting/JobPostingBase';
+import FormationsBase from '../components/formations/FormationsBase';
+
 export class CoreComponentConfig {
-
-    public constructor(){}
-
+    public static components: string [] = [
+        'JobPosting',
+        'Formation',
+        'Formations'
+    ];
     
-    public static init(){
-        console.log("%cConfig successfully initialized", 'color: green');
+    // #region Singleton pattern
+    // Implement singleton pattern to make sure we have only one instance of the config
+    private static instance: CoreComponentConfig;
 
-        this.addFeature('Formations', 'withPopular', true);
-        console.log(this.allComponentsConfig)
-
-        this.createConfigStructure();
-        console.log(this.testConfig)
+    public static getInstance(): CoreComponentConfig {
+        if (!CoreComponentConfig.instance) {
+            CoreComponentConfig.instance = new CoreComponentConfig();
+        }
+        return CoreComponentConfig.instance;
     }
 
+    //#endregion
+
+    public constructor(){}
+    
+    
     // TODO: Lazy import for all components renderer
     // TODO: Implements config for all components and use them in the app
     // TODO: Replace this.configs
+
+    public static init(){
+        console.log("%cConfig successfully initialized", 'color: green');
+
+        this.createConfigStructure();
+        console.log('Test: ', this.testConfig)
+    }
 
     private static createConfigStructure(){
         this.components.forEach(componentName => {
             this.testConfig.push(
                 {
                     [componentName]: {
-                        renderer: this.getBaseComponent(componentName),
-                        features: [],
+                        renderer: this.getRendererComponent(componentName),
+                        features: [
+                            
+                        ],
                     }
                 }
             )
@@ -37,12 +58,6 @@ export class CoreComponentConfig {
     }
 
     public static testConfig: any[] = [];
-    
-    public static components: string [] = [
-        'JobPosting',
-        'Formation',
-        'Formations'
-    ];
     
     public static configs = {
         JobPosting: {
@@ -80,25 +95,35 @@ export class CoreComponentConfig {
         };
     };
 
-    // Implement singleton pattern to make sure we have only one instance of the config
-    private static instance: CoreComponentConfig;
-
-    public static getInstance(): CoreComponentConfig {
-        if (!CoreComponentConfig.instance) {
-            CoreComponentConfig.instance = new CoreComponentConfig();
-        }
-        return CoreComponentConfig.instance;
-    }
-
     // #region Configs management
 
-    static getBaseComponent(coreComponentKey: string) {
-        try{
-            const component = componentConfig[coreComponentKey];
-            return component.renderer;
-        }catch(e){
-            console.error(e);
+    public getBaseComponent(coreComponentKey: string) {
+        const path = coreComponentKey + 'Base';        
+        let BaseComponent;
+
+        // const BaseComponent = import(/* @vite-ignore */`../components/${coreComponentKey}/${path}.tsx`);
+        // const BaseComponent = React.lazy(() => import(`../components/${path}.tsx`));
+
+        if(coreComponentKey === 'Formations'){
+            BaseComponent = FormationsBase;
+        }else if(coreComponentKey === 'JobPosting'){
+            BaseComponent = JobPostingBase;
         }
+        return BaseComponent as <T>(Component: ComponentType<T>) => any;
+    }
+
+    static getRendererComponent(coreComponentKey: string){
+        //const path = `${coreComponentKey}/renderers/${coreComponentKey}Renderer`;
+        //const RendererComponent = React.lazy(() => import(/* @vite-ignore */`../components/${path}.tsx`));
+        let RendererComponent;
+        if(coreComponentKey === 'Formations'){
+            RendererComponent = FormationsBase;
+        }else if(coreComponentKey === 'JobPosting'){
+            RendererComponent = JobPostingBase;
+        }else if(coreComponentKey === 'Formation'){
+            RendererComponent = FormationRenderer;
+        }
+        return RendererComponent;
     }
 
     // Return list of all components with their configs
@@ -107,7 +132,7 @@ export class CoreComponentConfig {
     }
 
     // Return a component with their configs
-    static getSingleComponentConfig(componentName: string){
+    public getComponentConfig(componentName: string){
         return componentConfig[componentName];
     }
 

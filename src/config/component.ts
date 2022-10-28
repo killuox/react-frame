@@ -4,7 +4,7 @@ import { withFavorite } from '../components/JobPosting/features/favorite/withFav
 
 export const componentConfig = {
     JobPosting: {
-        renderer: React.lazy(() => import('../components/JobPosting/renderers/JobPostingRenderer')),
+        renderer: JobPostingRenderer,
         features: [
             // {
             //     name: 'favorite',

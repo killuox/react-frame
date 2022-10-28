@@ -1,4 +1,5 @@
 import React, { ComponentType } from 'react';
+import CoreComponentConfig from '../config/coreComponentConfig';
 
 type Props = {
     componentConfig: {
@@ -6,9 +7,10 @@ type Props = {
         renderer: ComponentType<any>;
         injectedFeatures?: { feature: React.FC<any> }[];
     };
-    BaseComponent: <T>(Component: ComponentType<T>) => any;
+    // BaseComponent: <T>(Component: ComponentType<T>) => any;
     featuresOptions?: { [key: string]: React.FC<any> };
     customRenderer?: ComponentType<any>;
+    coreComponentKey: string;
 };
 
 const useCoreComponent = (props: Props) => {
@@ -35,6 +37,7 @@ const useCoreComponent = (props: Props) => {
 
     // Insert base here so features overwrite base methods and props
     Component = BaseComponent(Component);
+    // Component = Base(Component);
 
     return Component;
 };
