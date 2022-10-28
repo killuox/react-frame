@@ -8,6 +8,7 @@ export const JobPosting: (props: JobPostingPropsType) => JSX.Element = (props: J
         'JobPosting',
         props,
     );
+
  
-    return <Component {...props} />;
+    return <Component {...(props as any)} />;
 };

@@ -12,7 +12,7 @@ export default function JobPostingBase<T>(Component: ComponentType<T>) {
 
         return (
         
-                <Component {...(props as T)}  onDetailsClick={onDetailsClick} viewCount={viewCount} />
+                <Component {...(props as any)}  onDetailsClick={onDetailsClick} viewCount={viewCount} />
         
         );
     };

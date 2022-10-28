@@ -6,6 +6,6 @@ function FormationsBase<T>(Component: ComponentType<T>) {
         // Logic here
 
         const baseProps = {}
-        return <Component {...(props as T)}  {...baseProps}/>;
+        return <Component {...(props as any)}  {...baseProps}/>;
     };
 }

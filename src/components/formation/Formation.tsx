@@ -1,12 +1,6 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import useFeatures from '../../hooks/useCoreComponent';
 import { FormationPropsType } from './types';
-
-const featuresOptions = {
-
-} as {
-    [key: string]: <T>(Component: ComponentType<T>) => any;
-};
 
 export const Formations: (props: FormationPropsType) => JSX.Element = (props) => {
     const Component = useFeatures(
@@ -14,5 +8,5 @@ export const Formations: (props: FormationPropsType) => JSX.Element = (props) =>
         props,
     );
 
-    return <Component {...props} />;
+    return <Component {...(props as any)} />;
 };

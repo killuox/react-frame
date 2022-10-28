@@ -5,6 +5,7 @@ import FormationRenderer from '../components/formation/renderers/FormationRender
 import FormationsListRenderer from '../components/formations/renderers/FormationsListRenderer';
 import JobPostingBase from '../components/JobPosting/JobPostingBase';
 import FormationsBase from '../components/formations/FormationsBase';
+import FormationBase from '../components/formations/FormationsBase';
 
 import { withLike } from '../components/JobPosting/features/like/withLike';
 import { withPopular } from '../components/formations/features/withPopular';
