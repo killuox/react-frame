@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { JobPosting } from './components/JobPosting/JobPosting';
-// import { Formations } from './components/formations/Formations';
+import { Formations } from './components/formations/Formations';
 function App() {
     return (
         <div className="App">
@@ -30,7 +30,7 @@ function App() {
                 />
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <h1>Formations</h1>
-                    {/* <Formations />          */}
+                    <Formations />         
                 </div>
         </div>
     );

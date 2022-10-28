@@ -1,5 +1,4 @@
 import React, { ComponentType } from 'react';
-import { componentFeatures } from './component';
 
 import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
 import FormationRenderer from '../components/formation/renderers/FormationRenderer';
@@ -12,7 +11,6 @@ import { withPopular } from '../components/formations/features/withPopular';
 import { withFavorite } from '../components/JobPosting/features/favorite/withFavorite';
 
 export class CoreComponentConfig {
-    public static components: string[] = ['JobPosting', 'Formation', 'Formations'];
 
     // #region Singleton pattern
     // Implement singleton pattern to make sure we have only one instance of the config
@@ -26,37 +24,53 @@ export class CoreComponentConfig {
         }
         return CoreComponentConfig.instance;
     }
-
     //#endregion
 
-    public constructor() {}
+    // #region Variables
+    public static components: string[] = ['JobPosting', 'Formation', 'Formations'];
 
-    // TODO: Lazy import for all components renderer
-    // TODO: Implements config for all components and use them in the app
-    // TODO: Replace this.configs
+    private static componentsFeatures = {
+        JobPosting: {
+            features: ['favorite', 'like', 'share'],
+        },    
+        Formation: {
+            features: [],
+        },
+        Formations:{
+            features: ['withPopular']
+        }
+    } as {
+        [key: string]: {
+            features: string[];
+            injectedFeatures?: any[];
+        };
+    };
+    //#endregion
+    
+    public constructor() {}
 
     public static init() {
         console.log('%cConfig successfully initialized', 'color: green');
 
         this.createConfigStructure();
-        // JobPosting
-        this.enableFeature('JobPosting', 'favorite');
-
+        this.enableFeature('JobPosting', 'like');
+        this.enableFeature('Formations', 'withPopular');
+        
         console.log('Test: ', this.componentConfig);
     }
 
+    // #region Configs management
+    
     private static createConfigStructure() {
         this.components.forEach((componentKey) => {
             this.componentConfig[componentKey] = {
                 renderer: this.getRendererComponent(componentKey),
                 BaseComponent: this.getBaseComponent(componentKey),
                 enabledFeatures: [],
-                features: componentFeatures[componentKey].features || [],
+                features: this.componentsFeatures[componentKey].features || [],
             };
         });
     }
-
-    // #region Configs management
 
     public static getBaseComponent(coreComponentKey: string) {
         const path = coreComponentKey + 'Base';
@@ -88,21 +102,40 @@ export class CoreComponentConfig {
         return RendererComponent;
     }
 
-    public getEnabledFeaturesComponent(componentName: string) {
-        const enabledFeatures = CoreComponentConfig.componentConfig[componentName].enabledFeatures;
+    // Return list of all components with their configs
+    static get allComponentsConfig() {
+        return CoreComponentConfig.componentConfig;
+    }
+
+    // Return a component with their configs
+    public getComponentConfig(coreComponentKey: string) {
+        return CoreComponentConfig.componentConfig[coreComponentKey];
+    }
+
+    // Add a config to an existing component
+    static addComponentConfig(coreComponentKey: string, componentConfig: any) {
+        componentConfig[coreComponentKey] = componentConfig;
+    }
+    // #endregion
+
+    // #region Features Management
+    
+    // Return an array of component with their features for a specific component
+    public getEnabledFeaturesComponent(coreComponentKey: string) {
+        const enabledFeatures = CoreComponentConfig.componentConfig[coreComponentKey].enabledFeatures;
 
         let featuresComponent: any = [];
 
-        if(componentName === 'JobPosting') {
+        if(coreComponentKey === 'JobPosting') {
             featuresComponent = [withLike, withFavorite];
-        }else if(componentName === 'Formations') {
+        }else if(coreComponentKey === 'Formations') {
             featuresComponent = [withPopular];
         }
 
         // TODO: Logic with dyanmic import
         // enabledFeatures.forEach((featureName: string) => {
         //     const path = featureName.toLowerCase() + '/with' + featureName;
-        //     const FeatureComponent = React.lazy(() => import(`../components/${componentName}/features/${path}.tsx`));
+        //     const FeatureComponent = React.lazy(() => import(`../components/${coreComponentKey}/features/${path}.tsx`));
 
         //     featuresComponent.push(FeatureComponent as <T>(Component: ComponentType<T>) => any);
         //     featuresComponent.push(FeatureComponent );
@@ -111,61 +144,18 @@ export class CoreComponentConfig {
         return featuresComponent;
     }
 
-    // Return list of all components with their configs
-    static get allComponentsConfig() {
-        return CoreComponentConfig.componentConfig;
-    }
-
-    // Return a component with their configs
-    public getComponentConfig(componentName: string) {
-        return CoreComponentConfig.componentConfig[componentName];
-    }
-
-    // Add a config to an existing component
-    static addComponentConfig(componentName: string, componentConfig: any) {
-        componentConfig[componentName] = componentConfig;
-    }
-    // #endregion
-
-    // #region Features Management
-
-    // Turn on/off feature for a component
-    // static toggleFeature(componentName: string, featureName: string, enabled: boolean) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         const feature = component.features.find((feature: any) => feature.name === featureName);
-    //         if (feature) {
-    //             feature.enabled = enabled;
-    //         }
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
-    // // Edit feature name
-    // static editFeatureName(componentName: string, featureName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         const feature = component.features.find((feature: any) => feature.name === featureName);
-    //         if (feature) {
-    //             feature.name = featureName;
-    //         }
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
     // Add a feature for a specific component
-    static enableFeature(componentName: string, featureName: string) {
+    static enableFeature(coreComponentKey: string, featureName: string) {
         try {
-            const component = CoreComponentConfig.componentConfig[componentName];
-            const availableFeatures = this.componentConfig[componentName].features;
+            const component = CoreComponentConfig.componentConfig[coreComponentKey];
+            const availableFeatures = this.componentConfig[coreComponentKey].features;
 
             if (availableFeatures.includes(featureName)) {
                 component.enabledFeatures.push(featureName);
+                console.log(`%cFeature { ${featureName} } enabled for ${coreComponentKey}`, 'color: yellow');
             } else {
                 console.error(
-                    `Feature: ${featureName}, is not available for component ${componentName}`,
+                    `Feature: ${featureName}, is not available for component ${coreComponentKey}`,
                 );
             }
         } catch (e) {
@@ -173,10 +163,10 @@ export class CoreComponentConfig {
         }
     }
 
-    static disableFeature(componentName: string, featureName: string) {
+    static disableFeature(coreComponentKey: string, featureName: string) {
         try {
-            const component = CoreComponentConfig.componentConfig[componentName];
-            const availableFeatures = this.componentConfig[componentName].features;
+            const component = CoreComponentConfig.componentConfig[coreComponentKey];
+            const availableFeatures = this.componentConfig[coreComponentKey].features;
 
             if (availableFeatures.includes(featureName)) {
                 component.enabledFeatures = component.enabledFeatures.filter(
@@ -184,7 +174,7 @@ export class CoreComponentConfig {
                 );
             } else {
                 console.error(
-                    `Feature: ${featureName}, is not available for component ${componentName}`,
+                    `Feature: ${featureName}, is not available for component ${coreComponentKey}`,
                 );
             }
         } catch (e) {
@@ -192,75 +182,9 @@ export class CoreComponentConfig {
         }
     }
 
-
-
-    public getInjectedFeatures(componentName: string) {
-        return CoreComponentConfig.componentConfig[componentName].injectedFeatures;
+    public getEnabledFeatures(coreComponentKey: string) {
+        return CoreComponentConfig.componentConfig[coreComponentKey].enabledFeatures;
     }
-
-    public getEnabledFeatures(componentName: string) {
-        return CoreComponentConfig.componentConfig[componentName].enabledFeatures;
-    }
-
-    // Remove a feature for a specific component
-    // static removeFeature(componentName: string, featureName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         const feature = component.features.find((feature: any) => feature.name === featureName);
-    //         if (feature) {
-    //             component.features.splice(component.features.indexOf(feature), 1);
-    //         }
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
-    // static disableAllFeatures(componentName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         component.features.forEach((feature: any) => feature.enabled = false);
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
-    // static enableAllFeatures(componentName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         component.features.forEach((feature: any) => feature.enabled = false);
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
-    // // Remove all features for a specific component
-    // static removeAllFeatures(componentName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         component.features = [];
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
-    // // Return all features for a specific component
-    // static getFeatures(componentName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         return component.features;
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
-
-    // static getActiveFeatures(componentName: string) {
-    //     try{
-    //         const component = componentConfig[componentName];
-    //         return component.features.filter((feature: any) => feature.enabled);
-    //     }catch(e){
-    //         console.error(e);
-    //     }
-    // }
 
     //#endregion
 }
