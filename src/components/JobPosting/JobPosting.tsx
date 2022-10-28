@@ -32,9 +32,9 @@ function JobPostingBase<T>(Component: ComponentType<T>) {
 export const JobPosting: (props: JobPostingPropsType) => JSX.Element = (props: JobPostingPropsType) => {
     const Component = useFeatures({
         componentConfig: CoreComponentConfig.configs['JobPosting'],
-        BaseComponent: JobPostingBase,
         featuresOptions: featuresOptions,
         customRenderer: props.renderer,
+        coreComponentKey: 'JobPosting',
     });
 
     return <Component {...props} />;

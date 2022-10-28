@@ -5,7 +5,7 @@ import FormationsListRenderer from '../components/formations/renderers/Formation
 
 export const componentConfig = {
     JobPosting: {
-        renderer: React.lazy(() => import('../components/JobPosting/renderers/JobPostingRenderer')),
+        renderer: JobPostingRenderer,
         features: [
             {
                 name: 'favorite',
@@ -30,10 +30,7 @@ export const componentConfig = {
     Formations:{
         renderer: FormationsListRenderer,
         features: [
-            {
-                name: 'withPopular',
-                enabled: true,
-            }
+
         ]
     }
 } as {
