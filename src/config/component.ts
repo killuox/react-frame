@@ -1,34 +1,22 @@
 import React from 'react';
 import { withFavorite } from '../components/JobPosting/features/favorite/withFavorite';
+import { withLike } from '../components/JobPosting/features/like/withLike';
 
 export const componentFeatures = {
     JobPosting: {
         features: ['favorite', 'like'],
-        injectedFeatures: [{
-            feature: withFavorite,
-        },],
+        injectedFeatures: [withLike],
     },
-    
-    // Formation: {
-    //     renderer: FormationRenderer,
-    //     features: [
-            
-    //     ],
-    // },
-    // Formations:{
-    //     renderer: FormationsListRenderer,
-    //     features: [
-    //         {
-    //             name: 'withPopular',
-    //             enabled: true,
-    //         }
-    //     ]
-    // }
+
+    Formation: {
+        features: [],
+    },
+    Formations:{
+        features: ['withPopular']
+    }
 } as {
     [key: string]: {
         features: string[];
-        injectedFeatures?: {
-            feature: any;
-        }[];
+        injectedFeatures?: any[];
     };
 };
