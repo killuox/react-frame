@@ -30,20 +30,22 @@ export class CoreComponentConfig {
 
     public constructor(){}
     
+    
+    // TODO: Lazy import for all components renderer
+    // TODO: Implements config for all components and use them in the app
+    // TODO: Replace this.configs
+
     public static init(){
         console.log("%cConfig successfully initialized", 'color: green');
 
         this.addFeature('Formations', 'withPopular', true);
-        console.log(this.allComponentsConfig)
+        //console.log(this.allComponentsConfig)
 
         this.createConfigStructure();
         console.log('Test: ', this.testConfig)
-        console.log(this.getComponentConfig('Formations')) 
+        // console.log(this.getComponentConfig('Formations')) 
     }
 
-    // TODO: Lazy import for all components renderer
-    // TODO: Implements config for all components and use them in the app
-    // TODO: Replace this.configs
 
     private static createConfigStructure(){
         this.components.forEach(componentName => {
@@ -51,7 +53,9 @@ export class CoreComponentConfig {
                 {
                     [componentName]: {
                         renderer: this.getRendererComponent(componentName),
-                        features: [],
+                        features: [
+                            
+                        ],
                     }
                 }
             )
