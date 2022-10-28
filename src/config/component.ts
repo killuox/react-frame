@@ -4,8 +4,7 @@ import { withLike } from '../components/JobPosting/features/like/withLike';
 
 export const componentFeatures = {
     JobPosting: {
-        features: ['favorite', 'like'],
-        injectedFeatures: [withLike],
+        features: ['favorite', 'like', 'share'],
     },
 
     Formation: {
