@@ -16,7 +16,6 @@ const useCoreComponent = (
     // Make sure we have features
     if (features.length > 0) {
         features.forEach((feature: any) => {
-            console.log(features);
             // Add feature to the component
             (Component as any) = feature(Component);
         });

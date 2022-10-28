@@ -1,12 +1,16 @@
 import React, { ComponentType } from 'react';
 
+// Renderer import
 import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
 import FormationRenderer from '../components/formation/renderers/FormationRenderer';
 import FormationsListRenderer from '../components/formations/renderers/FormationsListRenderer';
+
+// Base import
 import JobPostingBase from '../components/JobPosting/JobPostingBase';
 import FormationsBase from '../components/formations/FormationsBase';
 import FormationBase from '../components/formations/FormationsBase';
 
+// Feature import
 import { withLike } from '../components/JobPosting/features/like/withLike';
 import { withPopular } from '../components/formations/features/withPopular';
 import { withFavorite } from '../components/JobPosting/features/favorite/withFavorite';
@@ -57,7 +61,7 @@ export class CoreComponentConfig {
         this.enableFeature('JobPosting', 'like');
         this.enableFeature('Formations', 'withPopular');
         
-        console.log('Test: ', this.componentConfig);
+        console.log('Current configuration : ', this.componentConfig);
     }
 
     // #region Configs management
@@ -84,6 +88,8 @@ export class CoreComponentConfig {
             BaseComponent = FormationsBase;
         } else if (coreComponentKey === 'JobPosting') {
             BaseComponent = JobPostingBase;
+        } else if (coreComponentKey === 'Formation') {
+            BaseComponent = FormationBase;
         }
         return BaseComponent as <T>(Component: ComponentType<T>) => any;
     }

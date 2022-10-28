@@ -10,10 +10,8 @@ export default function JobPostingBase<T>(Component: ComponentType<T>) {
             setViewCount(viewCount + 1);
         };
 
-        return (
-        
-                <Component {...(props as any)}  onDetailsClick={onDetailsClick} viewCount={viewCount} />
-        
+        return (        
+            <Component {...(props as any)}  onDetailsClick={onDetailsClick} viewCount={viewCount} />        
         );
     };
 }

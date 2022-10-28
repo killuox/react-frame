@@ -3,8 +3,7 @@ import { JobPosting } from './components/JobPosting/JobPosting';
 import { Formations } from './components/formations/Formations';
 function App() {
     return (
-        <div className="App">
-         
+        <div className="App">         
                 <JobPosting
                     title="Software Engineer"
                     description="Im a job posting description"

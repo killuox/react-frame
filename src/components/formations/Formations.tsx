@@ -8,5 +8,5 @@ export const Formations: (props: FormationPropsType) => JSX.Element = (props) =>
         'Formations',
         props,
     );
-    return <Component {...props} />;
+    return <Component {...(props as any)} />;
 };
