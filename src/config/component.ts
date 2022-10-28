@@ -1,29 +1,14 @@
 import React from 'react';
 import { withFavorite } from '../components/JobPosting/features/favorite/withFavorite';
 
-
-export const componentConfig = {
+export const componentFeatures = {
     JobPosting: {
-        renderer: JobPostingRenderer,
-        features: [
-            // {
-            //     name: 'favorite',
-            //     enabled: true,
-            // },
-            // {
-            //     name: 'like',
-            //     enabled: true,
-            // },
-            // {
-            //     name: 'share',
-            //     enabled: false,
-            // },
-        ],
+        features: ['favorite', 'like'],
         injectedFeatures: [{
             feature: withFavorite,
         },],
-            
     },
+    
     // Formation: {
     //     renderer: FormationRenderer,
     //     features: [
@@ -41,10 +26,7 @@ export const componentConfig = {
     // }
 } as {
     [key: string]: {
-        renderer: React.FC<any>;
-        features: {
-            feature: any;
-        }[];
+        features: string[];
         injectedFeatures?: {
             feature: any;
         }[];
