@@ -1,5 +1,4 @@
 import React, { ComponentType } from 'react';
-import { componentFeatures } from '../config/component';
 import CoreComponentConfig from '../config/coreComponentConfig';
 
 const useCoreComponent = (
@@ -8,6 +7,7 @@ const useCoreComponent = (
 ) => {
     const { BaseComponent, renderer } = CoreComponentConfig.getComponentConfig(coreComponentKey);
 
+    // Get the list of component for each enabled feature
     const features = CoreComponentConfig.getEnabledFeaturesComponent(coreComponentKey);
     
     // Insert Renderer
@@ -16,7 +16,6 @@ const useCoreComponent = (
     // Make sure we have features
     if (features.length > 0) {
         features.forEach((feature: any) => {
-            console.log(features);
             // Add feature to the component
             (Component as any) = feature(Component);
         });

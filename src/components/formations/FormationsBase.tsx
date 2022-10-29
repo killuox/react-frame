@@ -13,7 +13,7 @@ export default function FormationsBase<T>(Component: ComponentType<T>) {
         }
         return (
             <Suspense fallback={<div>Loading...</div>}>
-                <Component {...(props as T)}  {...baseProps}/>;
+                <Component {...(props as any)}  {...baseProps}/>;
             </Suspense>
         )
     };

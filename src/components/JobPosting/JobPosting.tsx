@@ -1,8 +1,6 @@
-import React, { ComponentType, useState } from 'react';
+import React from 'react';
 import useCoreComponent from '../../hooks/useCoreComponent';
 import { JobPostingPropsType } from './types';
-import { withFavorite } from './features/favorite/withFavorite';
-import { withLike } from './features/like/withLike';
 
 export const JobPosting: (props: JobPostingPropsType) => JSX.Element = (props: JobPostingPropsType) => {
     
@@ -10,6 +8,7 @@ export const JobPosting: (props: JobPostingPropsType) => JSX.Element = (props: J
         'JobPosting',
         props,
     );
+
  
-    return <Component {...props} />;
+    return <Component {...(props as any)} />;
 };

@@ -1,5 +1,6 @@
-import { ComponentType, useState } from 'react';
+import { ComponentType } from 'react';
 import { FormationsPopularType } from '../types';
+
 import PopularRender from './PopularRender';
 
 export function withPopular<T extends FormationsPopularType>(Component: ComponentType<T>) {
@@ -22,9 +23,6 @@ export function withPopular<T extends FormationsPopularType>(Component: Componen
             formations,
             css,
         };
-        
-
-        // console.log(hocProps.data.popular) // Overwrite the props of the component
 
         return <Component 
                 {...(hocProps as T)} 
