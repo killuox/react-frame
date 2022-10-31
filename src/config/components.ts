@@ -1,6 +1,6 @@
+import React from 'react';
 import jobPostingComponents from '../components/JobPosting';
 import formationsComponents from '../components/formations';
-import React from 'react';
 
 const components = {} as {
     [key: string]: {
