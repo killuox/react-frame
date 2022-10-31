@@ -1,22 +1,6 @@
-import React, { ComponentType } from 'react';
-
-// Renderer import
-import JobPostingRenderer from '../components/JobPosting/renderers/JobPostingRenderer';
-import FormationRenderer from '../components/formation/renderers/FormationRenderer';
-import FormationsListRenderer from '../components/formations/renderers/FormationsListRenderer';
-
-// Base import
-import JobPostingBase from '../components/JobPosting/JobPostingBase';
-import FormationsBase from '../components/formations/FormationsBase';
-import FormationBase from '../components/formations/FormationsBase';
-
-// Feature import
-import { withLike } from '../components/JobPosting/features/like/withLike';
-import { withPopular } from '../components/formations/features/withPopular';
-import { withFavorite } from '../components/JobPosting/features/favorite/withFavorite';
+import components from './components';
 
 export class CoreComponentConfig {
-
     // #region Singleton pattern
     // Implement singleton pattern to make sure we have only one instance of the config
     private static instance: CoreComponentConfig;
@@ -31,82 +15,34 @@ export class CoreComponentConfig {
     }
     //#endregion
 
-    // #region Variables
-    public static components: string[] = ['JobPosting', 'Formation', 'Formations'];
-
-    private static componentsFeatures = {
-        JobPosting: {
-            features: ['favorite', 'like', 'share'],
-        },    
-        Formation: {
-            features: [],
-        },
-        Formations:{
-            features: ['withPopular']
-        }
-    } as {
-        [key: string]: {
-            features: string[];
-            injectedFeatures?: any[];
-        };
-    };
-    //#endregion
-    
     public constructor() {}
 
     public static init() {
         console.log('%cConfig successfully initialized', 'color: green');
-
         this.createConfigStructure();
-        this.enableFeature('JobPosting', 'like');
-        this.enableFeature('Formations', 'withPopular');
-        
-        console.log('Current configuration : ', this.componentConfig);
+        this.enableFeatures('JobPosting', ['favorite']);
+        this.enableFeatures('Formations', ['popular']);
     }
 
     // #region Configs management
-    
+
     private static createConfigStructure() {
-        this.components.forEach((componentKey) => {
+        Object.keys(components).forEach((componentKey) => {
             this.componentConfig[componentKey] = {
                 renderer: this.getRendererComponent(componentKey),
                 BaseComponent: this.getBaseComponent(componentKey),
                 enabledFeatures: [],
-                features: this.componentsFeatures[componentKey].features || [],
+                features: Object.keys(components[componentKey].features),
             };
         });
     }
 
     public static getBaseComponent(coreComponentKey: string) {
-        const path = coreComponentKey + 'Base';
-        let BaseComponent;
-
-        // const BaseComponent = import(/* @vite-ignore */`../components/${coreComponentKey}/${path}.tsx`);
-        // const BaseComponent = React.lazy(() => import(`../components/${path}.tsx`));
-
-        if (coreComponentKey === 'Formations') {
-            BaseComponent = FormationsBase;
-        } else if (coreComponentKey === 'JobPosting') {
-            BaseComponent = JobPostingBase;
-        } else if (coreComponentKey === 'Formation') {
-            BaseComponent = FormationBase;
-        }
-        return BaseComponent as <T>(Component: ComponentType<T>) => any;
+        return components[coreComponentKey].base;
     }
 
     public static getRendererComponent(coreComponentKey: string) {
-        const path = `${coreComponentKey}/renderers/${coreComponentKey}Renderer`;
-        // const RendererComponent = React.lazy(() => import(/* @vite-ignore */`../components/${path}.tsx`));
-        // const RendererComponent = import(`../components/${path}`);
-        let RendererComponent;
-        if (coreComponentKey === 'Formations') {
-            RendererComponent = FormationsListRenderer;
-        } else if (coreComponentKey === 'JobPosting') {
-            RendererComponent = JobPostingRenderer;
-        } else if (coreComponentKey === 'Formation') {
-            RendererComponent = FormationRenderer;
-        }
-        return RendererComponent;
+        return components[coreComponentKey].renderer;
     }
 
     // Return list of all components with their configs
@@ -126,64 +62,56 @@ export class CoreComponentConfig {
     // #endregion
 
     // #region Features Management
-    
+
     // Return an array of component with their features for a specific component
     public getEnabledFeaturesComponent(coreComponentKey: string) {
-        const enabledFeatures = CoreComponentConfig.componentConfig[coreComponentKey].enabledFeatures;
+        const enabledFeatures = this.getEnabledFeatures(coreComponentKey);
 
-        let featuresComponent: any = [];
-
-        if(coreComponentKey === 'JobPosting') {
-            featuresComponent = [withLike, withFavorite];
-        }else if(coreComponentKey === 'Formations') {
-            featuresComponent = [withPopular];
-        }
-
-        // TODO: Logic with dyanmic import
-        // enabledFeatures.forEach((featureName: string) => {
-        //     const path = featureName.toLowerCase() + '/with' + featureName;
-        //     const FeatureComponent = React.lazy(() => import(`../components/${coreComponentKey}/features/${path}.tsx`));
-
-        //     featuresComponent.push(FeatureComponent as <T>(Component: ComponentType<T>) => any);
-        //     featuresComponent.push(FeatureComponent );
-        // })    
+        // Get features components
+        const featuresComponent = enabledFeatures.map((feature: any) => {
+            return components[coreComponentKey].features[feature];
+        });
         
         return featuresComponent;
     }
 
-    // Add a feature for a specific component
-    static enableFeature(coreComponentKey: string, featureName: string) {
+    // Add features for a specific component
+    static enableFeatures(coreComponentKey: string, featureName: string[]) {
         try {
             const component = CoreComponentConfig.componentConfig[coreComponentKey];
             const availableFeatures = this.componentConfig[coreComponentKey].features;
 
-            if (availableFeatures.includes(featureName)) {
-                component.enabledFeatures.push(featureName);
-                console.log(`%cFeature { ${featureName} } enabled for ${coreComponentKey}`, 'color: yellow');
-            } else {
-                console.error(
-                    `Feature: ${featureName}, is not available for component ${coreComponentKey}`,
-                );
-            }
+            featureName.forEach((feature: string) => {
+                if (availableFeatures.includes(feature)) {
+                    component.enabledFeatures.push(feature);
+                } else {
+                    console.error(
+                        `Feature: ${feature}, does not exist for component: ${coreComponentKey}`
+                    );
+                }
+            });
         } catch (e) {
             console.error(e);
         }
     }
 
-    static disableFeature(coreComponentKey: string, featureName: string) {
+    // Disable features for a specific component
+    static disableFeatures(coreComponentKey: string, featureName: string[]) {
         try {
             const component = CoreComponentConfig.componentConfig[coreComponentKey];
             const availableFeatures = this.componentConfig[coreComponentKey].features;
 
-            if (availableFeatures.includes(featureName)) {
-                component.enabledFeatures = component.enabledFeatures.filter(
-                    (feature: string) => feature !== featureName,
-                );
-            } else {
-                console.error(
-                    `Feature: ${featureName}, is not available for component ${coreComponentKey}`,
-                );
-            }
+            featureName.forEach((feature: string) => {
+                if (availableFeatures.includes(feature)) {
+                    component.enabledFeatures = component.enabledFeatures.filter(
+                        (enabledFeature: string) => enabledFeature !== feature,
+                    );
+                } else {
+                    console.error(
+                        `Feature: ${featureName}, does not exist for component: ${coreComponentKey}`
+                    );
+                }
+            });
         } catch (e) {
             console.error(e);
         }
