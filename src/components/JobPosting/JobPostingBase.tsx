@@ -1,5 +1,5 @@
 import React, { ComponentType, useState, Suspense } from 'react';
-import { JobPostingPropsType } from './types';
+import { JobPostingPropsType } from './index';
 
 export default function JobPostingBase<T>(Component: ComponentType<T>) {
     return (props: JobPostingPropsType) => {
