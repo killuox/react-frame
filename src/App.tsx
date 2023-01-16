@@ -1,5 +1,4 @@
-import { Suspense } from 'react';
-import { JobPosting } from './components/JobPosting/JobPosting';
+import { JobPosting } from './components/JobPosting/index';
 import { Formations } from './components/formations/Formations';
 function App() {
     return (
@@ -29,7 +28,7 @@ function App() {
                 />
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <h1>Formations</h1>
-                    <Formations />         
+                        
                 </div>
         </div>
     );

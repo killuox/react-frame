@@ -1,15 +1,12 @@
 import React, { ComponentType } from 'react';
 import CoreComponentConfig from '../config/coreComponentConfig';
 
-const useCoreComponent = (
-    coreComponentKey: string,
-    props: any,
-) => {
+const useCoreComponent = (coreComponentKey: string, props: any) => {
     const { BaseComponent, renderer } = CoreComponentConfig.getComponentConfig(coreComponentKey);
 
     // Get the list of component for each enabled feature
     const features = CoreComponentConfig.getEnabledFeaturesComponent(coreComponentKey);
-    
+
     // Insert Renderer
     let Component = BaseInjector(props.renderer ?? renderer);
 
